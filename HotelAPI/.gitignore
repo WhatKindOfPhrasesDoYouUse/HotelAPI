@@ -1,0 +1,59 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+bin/
+obj/
+out/
+
+# User secrets
+secrets.json
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+*.nuspec
+
+# ASP.NET Core
+wwwroot/lib/
+wwwroot/css/
+wwwroot/js/
+node_modules/
+dist/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Application Insights
+ApplicationInsights.config
+
+# Local configuration options
+appsettings.Development.json
+appsettings.Staging.json
+appsettings.Production.json
+
+# Coverage reports
+coverage/
+*.coverage
+
+# Other files
+*.db
+*.db-journal
