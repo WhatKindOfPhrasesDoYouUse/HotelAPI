@@ -264,3 +264,10 @@ ALTER COLUMN name TYPE NAME;
 ALTER TABLE core.user_account
 ADD CONSTRAINT password_length_check
 CHECK (length(password) >= 10 AND length(password) <= 50);
+
+ALTER TABLE core.payment_room
+ALTER COLUMN price TYPE DECIMAL;
+
+ALTER TABLE core.payment_room
+ADD CONSTRAINT price_range_check
+CHECK (price BETWEEN 0 and 10000000);
