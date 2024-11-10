@@ -260,3 +260,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA core, public GRANT ALL PRIVILEGES ON SEQUENCE
 
 ALTER TABLE core.comfort
 ALTER COLUMN name TYPE NAME;
+
+ALTER TABLE core.user_account
+ADD CONSTRAINT password_length_check
+CHECK (length(password) >= 10 AND length(password) <= 50);
