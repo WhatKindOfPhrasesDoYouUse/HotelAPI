@@ -271,3 +271,13 @@ ALTER COLUMN price TYPE DECIMAL;
 ALTER TABLE core.payment_room
 ADD CONSTRAINT price_range_check
 CHECK (price BETWEEN 0 and 10000000);
+
+ALTER TABLE core.payment_travel
+ALTER COLUMN price TYPE DOUBLE;
+
+ALTER TABLE core.payment_travel
+ADD CONSTRAINT price_travel_check
+CHECK (price >= 0);
+
+ALTER TABLE core.room 
+ALTER COLUMN price TYPE DOUBLE;

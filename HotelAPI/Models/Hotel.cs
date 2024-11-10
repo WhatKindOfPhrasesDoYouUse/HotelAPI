@@ -1,31 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelAPI.Models;
 
+[Table(name: "hotel", Schema = "core")]
 public partial class Hotel
 {
+    [Column(name: "id")]
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
+    [Column(name: "description")]
     public string? Description { get; set; }
 
+    [Column(name: "phone_number")]
+    [Required(ErrorMessage = "Поле телефонного номера отеля является обязательным параметром")]
+    [StringLength(12, MinimumLength = 12, ErrorMessage = "Поле телефонного номера отеля должно содержать строго 12 символов")]
+    [RegularExpression(@"^\+[0-9]{11}$", ErrorMessage = "Телефонный номер должен начинаться с + и содержать строго 12 цифр")]
     public string PhoneNumber { get; set; } = null!;
 
+    [Column(name: "email")]
+    [Required(ErrorMessage = "Поле электронной почты является обязательным параметром")]
+    [StringLength(50, ErrorMessage = "Поле электронной почты должно содержать не более 50 символов")]
+    [RegularExpression(@"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$", ErrorMessage = "Введите корректный адрес электронной почты.")]
     public string Email { get; set; } = null!;
 
+    [Column(name: "construction_year")]
     public DateOnly? ConstructionYear { get; set; }
 
+    [Column(name: "rating")]
+    [Range(1, maximum: 5, ErrorMessage = "Рейтинг отеля должен быть в промежутке между 1 и 5")]
     public int? Rating { get; set; }
 
+    [Column(name: "manager_id")]
+    [Required]
     public int ManagerId { get; set; }
 
+    [Column(name: "hotel_type_id")]
+    [Required]
     public int HotelTypeId { get; set; }
 
     public virtual ICollection<HotelReview> HotelReviews { get; set; } = new List<HotelReview>();
 
-    public virtual HotelType HotelType { get; set; } = null!;
+    public virtual HotelType? HotelType { get; set; } = null!;
 
-    public virtual UserAccount Manager { get; set; } = null!;
+    public virtual UserAccount? Manager { get; set; } = null!;
 
     public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
 
