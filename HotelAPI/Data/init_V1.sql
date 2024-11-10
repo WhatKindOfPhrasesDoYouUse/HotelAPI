@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS core.user_account (
     surname NAME,
     email EMAIL NOT NULL UNIQUE,
     phone_number PHONE NOT NULL UNIQUE,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL CHECK (password >= 10 AND password <= 50),
     passport PASSPORT NOT NULL UNIQUE,
     card_id INT,
     FOREIGN KEY (card_id) REFERENCES core.card (id) 
