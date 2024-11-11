@@ -13,6 +13,12 @@ public partial class Travel
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
+    [Column(name: "name")]
+    [Required(ErrorMessage = "Поле названия путевки является обязательным параметром")]
+    [StringLength(30, MinimumLength = 1, ErrorMessage = "Поле названия путевки должно содержать от 1 до 30 символов")]
+    [RegularExpression(@"^[A-Za-zА-Яа-я]+$", ErrorMessage = "Название путевки должно содержать только буквы")]
+    public string Name { get; set; } = null!;
+
     [Column(name: "description")]
     public string? Description { get; set; }
 

@@ -38,7 +38,9 @@ public partial class Room
     [Required]
     public int HotelId { get; set; }
 
+    public virtual Hotel Hotel { get; set; } = null!;
+
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
-    public virtual Hotel Hotel { get; set; } = null!;
+    public virtual ICollection<RoomComfort> Comforts { get; set; } = new List<RoomComfort>();
 }

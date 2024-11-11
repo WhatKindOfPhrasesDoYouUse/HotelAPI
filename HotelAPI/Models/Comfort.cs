@@ -20,4 +20,6 @@ public partial class Comfort
 
     [Column(name: "description")]
     public string? Description { get; set; }
+
+    public virtual ICollection<RoomComfort> Rooms { get; set; } = new List<RoomComfort>();
 }

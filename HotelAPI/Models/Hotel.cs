@@ -11,6 +11,18 @@ public partial class Hotel
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
+    [Column(name: "name")]
+    [Required(ErrorMessage = "Поле названия отеля является обязательным параметром")]
+    [StringLength(30, MinimumLength = 1, ErrorMessage = "Поле названия отеля должно содержать от 1 до 30 символов")]
+    [RegularExpression(@"^[A-Za-zА-Яа-я]+$", ErrorMessage = "Название отеля должно содержать только буквы")]
+    public string Name { get; set; } = null!;
+
+    [Column(name: "address")]
+    [Required(ErrorMessage = "Поле адрес является обязательным параметром")]
+    [StringLength(30, MinimumLength = 1, ErrorMessage = "Поле адрес должно содержать от 1 до 30 символов")]
+    [RegularExpression(@"^[A-Za-zА-Яа-я]+$", ErrorMessage = "Название адреса должно содержать только буквы")]
+    public string Address { get; set; } = null!;
+
     [Column(name: "description")]
     public string? Description { get; set; }
 
@@ -41,11 +53,11 @@ public partial class Hotel
     [Required]
     public int HotelTypeId { get; set; }
 
-    public virtual ICollection<HotelReview> HotelReviews { get; set; } = new List<HotelReview>();
-
     public virtual HotelType? HotelType { get; set; } = null!;
 
     public virtual UserAccount? Manager { get; set; } = null!;
+
+    public virtual ICollection<HotelReview> HotelReviews { get; set; } = new List<HotelReview>();
 
     public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
 

@@ -16,4 +16,6 @@ public partial class Role
     [StringLength(30, MinimumLength = 1, ErrorMessage = "Поле названия роли должно содержать от 1 до 30 символов")]
     [RegularExpression(@"^[A-Za-zА-Яа-я]+$", ErrorMessage = "Название роли должно содержать только буквы")]
     public string Name { get; set; } = null!;
+
+    public virtual ICollection<UserRole> UserAccounts { get; set; } = new List<UserRole>();
 }

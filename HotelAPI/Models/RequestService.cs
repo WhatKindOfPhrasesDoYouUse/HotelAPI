@@ -39,10 +39,8 @@ public partial class RequestService
     [Column(name: "user_account_id")]
     [Required]
     public int UserAccountId { get; set; }
+    public virtual UserAccount Service { get; set; } = null!;
+    public virtual UserAccount UserAccount { get; set; } = null!;
 
     public virtual ICollection<RequestServiceReview> RequestServiceReviews { get; set; } = new List<RequestServiceReview>();
-
-    public virtual UserAccount Service { get; set; } = null!;
-
-    public virtual UserAccount UserAccount { get; set; } = null!;
 }

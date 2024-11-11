@@ -38,9 +38,9 @@ public partial class UserAccount
     [Required]
     public int? CardId { get; set; }
 
-    public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
-
     public virtual Card? Card { get; set; }
+
+    public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
     public virtual ICollection<HotelReview> HotelReviews { get; set; } = new List<HotelReview>();
 
@@ -50,9 +50,11 @@ public partial class UserAccount
 
     public virtual ICollection<RequestServiceReview> RequestServiceReviews { get; set; } = new List<RequestServiceReview>();
 
-    public virtual ICollection<RequestService> RequestServiceServices { get; set; } = new List<RequestService>();
+    public virtual ICollection<RequestService> RequestServices { get; set; } = new List<RequestService>();
 
     public virtual ICollection<RequestService> RequestServiceUserAccounts { get; set; } = new List<RequestService>();
 
     public virtual ICollection<TravelReview> TravelReviews { get; set; } = new List<TravelReview>();
+
+    public virtual ICollection<UserRole> Roles { get; set; } = new List<UserRole>();
 }
