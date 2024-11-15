@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿/*using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelAPI.Models;
@@ -58,3 +58,4 @@ public partial class UserAccount
 
     public virtual ICollection<UserRole> Roles { get; set; } = new List<UserRole>();
 }
+*/

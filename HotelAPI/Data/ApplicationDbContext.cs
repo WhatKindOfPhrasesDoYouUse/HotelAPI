@@ -1,12 +1,12 @@
 ﻿using HotelAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HotelAPI
+namespace HotelAPI.Data
 {
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Card> Cards { get; set; }
-        public DbSet<Role> Roles { get; set; }
+/*        public DbSet<Role> Roles { get; set; }
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<UserRole> UsersRoles { get; set; }
         public DbSet<HotelType> HotelTypes { get; set; }
@@ -21,7 +21,7 @@ namespace HotelAPI
         public DbSet<Comfort> Comforts { get; set; }
         public DbSet<RoomComfort> RoomComforts { get; set; }
         public DbSet<Travel> Travels { get; set; }
-        public DbSet<TravelReview> TravelReviews { get; set; }
+        public DbSet<TravelReview> TravelReviews { get; set; }*/
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -37,7 +37,7 @@ namespace HotelAPI
                 .HasIndex(c => c.Number)
                 .IsUnique();
 
-            // Конфигурация Role
+            /*// Конфигурация Role
 
             modelBuilder.Entity<Role>()
                 .HasIndex(r => r.Name)
@@ -124,7 +124,7 @@ namespace HotelAPI
                 .WithMany(r => r.Rooms)
                 .HasForeignKey(k => k.HotelId)
                 .OnDelete(DeleteBehavior.Restrict);
-            
+
             // Конфигурация Bookings
 
             modelBuilder.Entity<Booking>()
@@ -209,7 +209,7 @@ namespace HotelAPI
             // Конфигурация RoomComfort
 
             modelBuilder.Entity<RoomComfort>()
-                .HasKey(rc => new { rc.RoomId, rc.ComfortId});
+                .HasKey(rc => new { rc.RoomId, rc.ComfortId });
 
             modelBuilder.Entity<RoomComfort>()
                 .HasOne(r => r.Room)
@@ -245,7 +245,7 @@ namespace HotelAPI
                 .HasOne(ua => ua.UserAccount)
                 .WithMany(tr => tr.TravelReviews)
                 .HasForeignKey(k => k.TravelId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade);*/
 
             base.OnModelCreating(modelBuilder);
         }

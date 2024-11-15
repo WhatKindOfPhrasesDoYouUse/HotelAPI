@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿/*using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelAPI.Models;
@@ -46,3 +46,4 @@ public partial class Travel
 
     public virtual ICollection<TravelReview> TravelReviews { get; set; } = new List<TravelReview>();
 }
+*/

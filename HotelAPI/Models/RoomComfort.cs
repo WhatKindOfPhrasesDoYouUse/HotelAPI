@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿/*using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelAPI.Models;
@@ -18,3 +18,4 @@ public partial class RoomComfort
 
     public virtual Room Room { get; set; } = null!;
 }
+*/
