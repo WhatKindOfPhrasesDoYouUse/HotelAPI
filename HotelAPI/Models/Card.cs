@@ -14,7 +14,7 @@ public partial class Card
     [Column(name: "name")]
     [Required(ErrorMessage = "Поле названия банка является обязательным параметром")]
     [StringLength(30, MinimumLength = 1, ErrorMessage = "Поле названия банка должно содержать от 1 до 30 символов")]
-    [RegularExpression(@"^[A-Za-zА-Яа-я]+$", ErrorMessage = "Название банка должно содержать только буквы")]
+    [RegularExpression(@"^[A-Za-zА-Яа-я\s\-]+$", ErrorMessage = "Название банка может содержать только буквы, пробелы и дефис")]
     public string Name { get; set; } = null!;
 
     [Column(name: "number")]

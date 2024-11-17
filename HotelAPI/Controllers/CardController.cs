@@ -34,6 +34,11 @@ namespace HotelAPI.Controllers
         [HttpGet("GetCardById/{id}")]
         public async Task<IActionResult> GetCard(long id)
         {
+            if (id <= 0)
+            {
+                return BadRequest("Некоректный ID");
+            }
+
             var card = await _cardService.GetCardById(id);
 
             if (card == null)
@@ -44,18 +49,58 @@ namespace HotelAPI.Controllers
             return Ok(card);
         }
 
-        // Пофиксить метод добавления
         [HttpPost("AddCard")]
         public async Task<IActionResult> AddCard(Card card)
         {
-            bool flag = await _cardService.AddCard(card);
-
-            if (!flag)
+            if (card == null)
             {
-                return BadRequest("Не удалось добавить карту");
+                return BadRequest("Некоректнные данные карты");
             }
 
-            return Ok(card);
+            bool result = await _cardService.AddCard(card);
+
+            if (!result)
+            {
+                return Conflict("Карта с таким номером или именем уже существует");
+            }
+
+            return CreatedAtAction(nameof(GetCard), new {id = card.Id}, card);
+        }
+
+        [HttpDelete("DeleteCardById/{id}")]
+        public async Task<IActionResult> DeleteCardById(long id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest("Некоректный ID");
+            }
+
+            bool isDeleted = await _cardService.DeleteCardById(id);
+
+            if (!isDeleted)
+            {
+                return NotFound($"Карта с id: {id} не найдена");
+            }
+
+            return Ok($"Карта с id: {id} была успешно удалена");
+        }
+
+        [HttpPut("UpdateCard")]
+        public async Task<IActionResult> UpdateCard([FromBody] Card card)
+        {
+            if (card == null || card.Id <= 0)
+            {
+                return BadRequest("Введены некоректные данные");
+            }
+
+            bool isUpdated = await _cardService.UpdateCard(card);
+
+            if (!isUpdated)
+            {
+                return NotFound($"Карта с id: {card.Id} не найдена");
+            }
+
+            return Ok($"Карта с ID {card.Id} успешно обновлена.");
         }
     }
 }

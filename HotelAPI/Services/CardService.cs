@@ -47,19 +47,48 @@ namespace HotelAPI.Services
 
         public async Task<bool> AddCard(Card card)
         {
-            var findCard = await _context.Cards.FindAsync(card.Id);
+            var existingCard = await _context.Cards.FirstOrDefaultAsync(c => c.Name == card.Name || c.Number == card.Number);
 
-            if (findCard != null || await _context.Cards.AnyAsync(c => c.Name == card.Name || c.Number == card.Number)) 
+            if (existingCard != null)
             {
                 return false;
             }
-            else
-            {
-                await _context.Cards.AddAsync(card);
-                await _context.SaveChangesAsync();
+            
+            await _context.Cards.AddAsync(card);
+            await _context.SaveChangesAsync();
 
-                return true;
+            return true;
+        }
+
+        public async Task<bool> DeleteCardById(long id)
+        {
+            var card = await _context.Cards.SingleOrDefaultAsync(c => c.Id == id);
+
+            if (card == null)
+            {
+                return false;
             }
+
+            _context.Cards.Remove(card);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateCard(Card card)
+        {
+            var existingCard = await _context.Cards.SingleOrDefaultAsync(c => c.Id == card.Id);
+
+            if (existingCard == null) 
+            {
+                return false;
+            }
+
+            existingCard.Number = card.Number;
+            existingCard.Name = card.Name;
+            existingCard.Date = card.Date;
+
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

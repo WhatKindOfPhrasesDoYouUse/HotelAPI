@@ -281,3 +281,9 @@ CHECK (price >= 0);
 
 ALTER TABLE core.room 
 ALTER COLUMN price TYPE DOUBLE;
+
+ALTER TABLE core.card 
+ALTER COLUMN name NOT NULL;
+
+ALTER TABLE core.card 
+DROP CONSTRAINT card_name_key;
