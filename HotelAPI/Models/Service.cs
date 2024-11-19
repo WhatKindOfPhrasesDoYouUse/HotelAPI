@@ -1,4 +1,4 @@
-﻿/*using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelAPI.Models;
@@ -31,4 +31,3 @@ public partial class Service
 
     public virtual Hotel Hotel { get; set; } = null!;
 }
-*/

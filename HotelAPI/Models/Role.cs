@@ -1,5 +1,6 @@
-﻿/*using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HotelAPI.Models;
 
@@ -17,6 +18,6 @@ public partial class Role
     [RegularExpression(@"^[A-Za-zА-Яа-я]+$", ErrorMessage = "Название роли должно содержать только буквы")]
     public string Name { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual ICollection<UserRole> UserAccounts { get; set; } = new List<UserRole>();
 }
-*/

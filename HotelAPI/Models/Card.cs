@@ -29,5 +29,5 @@ public partial class Card
     [RegularExpression(@"^(0[1-9]|1[0-2])/[0-9]{2}$", ErrorMessage = "Дата должна быть в формате MM/YY")]
     public string Date { get; set; } = null!;
 
-    //public virtual ICollection<UserAccount> UserAccounts { get; set; } = new List<UserAccount>();
+    public UserAccount? UserAccount { get; set; }
 }

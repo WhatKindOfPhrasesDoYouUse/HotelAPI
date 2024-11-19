@@ -287,3 +287,6 @@ ALTER COLUMN name NOT NULL;
 
 ALTER TABLE core.card 
 DROP CONSTRAINT card_name_key;
+
+ALTER TABLE core.payment_room
+ADD COLUMN payment_type VARCHAR(30) NOT NULL;

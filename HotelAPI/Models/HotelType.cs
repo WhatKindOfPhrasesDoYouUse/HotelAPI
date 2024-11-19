@@ -1,4 +1,4 @@
-﻿/*using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelAPI.Models;
@@ -22,4 +22,3 @@ public partial class HotelType
 
     public virtual ICollection<Hotel> Hotels { get; set; } = new List<Hotel>();
 }
-*/

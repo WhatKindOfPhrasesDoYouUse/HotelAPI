@@ -6,7 +6,7 @@ namespace HotelAPI.Data
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Card> Cards { get; set; }
-/*        public DbSet<Role> Roles { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<UserRole> UsersRoles { get; set; }
         public DbSet<HotelType> HotelTypes { get; set; }
@@ -17,11 +17,11 @@ namespace HotelAPI.Data
         public DbSet<HotelReview> HotelReviews { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<RequestService> RequestServices { get; set; }
-        public DbSet<RequestServiceReview> RequestServiceReviews { get; set; }
-        public DbSet<Comfort> Comforts { get; set; }
-        public DbSet<RoomComfort> RoomComforts { get; set; }
-        public DbSet<Travel> Travels { get; set; }
-        public DbSet<TravelReview> TravelReviews { get; set; }*/
+        //public DbSet<RequestServiceReview> RequestServiceReviews { get; set; }
+        //public DbSet<Comfort> Comforts { get; set; }
+        //public DbSet<RoomComfort> RoomComforts { get; set; }
+        //public DbSet<Travel> Travels { get; set; }
+        //public DbSet<TravelReview> TravelReviews { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -35,12 +35,6 @@ namespace HotelAPI.Data
 
             modelBuilder.Entity<Card>()
                 .HasIndex(c => c.Number)
-                .IsUnique();
-
-            /*// Конфигурация Role
-
-            modelBuilder.Entity<Role>()
-                .HasIndex(r => r.Name)
                 .IsUnique();
 
             // Конфигурация UserAccount
@@ -57,11 +51,20 @@ namespace HotelAPI.Data
                 .HasIndex(ua => ua.Passport)
                 .IsUnique();
 
-            modelBuilder.Entity<UserAccount>()
-                .HasOne(c => c.Card)
-                .WithMany(ua => ua.UserAccounts)
-                .HasForeignKey(k => k.CardId)
-                .OnDelete(DeleteBehavior.Cascade);
+            // Один к одному
+            modelBuilder.Entity<UserAccount>(entity =>
+            {
+                entity.HasOne(ua => ua.Card)  
+                    .WithOne(c => c.UserAccount)  
+                    .HasForeignKey<UserAccount>(ua => ua.CardId) 
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // Конфигурация Role
+
+            modelBuilder.Entity<Role>()
+                .HasIndex(r => r.Name)
+                .IsUnique();
 
             // Конфигурация UserRole
 
@@ -186,7 +189,7 @@ namespace HotelAPI.Data
                 .HasForeignKey(k => k.UserAccountId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Конфигурация RequestServiceReview
+            /* // Конфигурация RequestServiceReview
 
             modelBuilder.Entity<RequestServiceReview>()
                 .HasOne(rs => rs.RequestService)

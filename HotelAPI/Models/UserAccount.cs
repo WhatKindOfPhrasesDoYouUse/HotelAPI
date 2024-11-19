@@ -1,5 +1,6 @@
-﻿/*using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HotelAPI.Models;
 
@@ -10,6 +11,23 @@ public partial class UserAccount
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
+
+    [Column(name: "first_name")]
+    [Required(ErrorMessage = "Поле имени является обязательным параметром")]
+    [StringLength(50, ErrorMessage = "Имя не должно превышать 50 символов")]
+    [RegularExpression(@"^[A-Za-zА-Яа-я]+$", ErrorMessage = "Имя должно содержать только буквы")]
+    public string FirstName { get; set; } = null!;
+
+    [Column(name: "last_name")]
+    [Required(ErrorMessage = "Поле фамилии является обязательным параметром")]
+    [StringLength(50, ErrorMessage = "Фамилия не должна превышать 50 символов")]
+    [RegularExpression(@"^[A-Za-zА-Яа-я]+$", ErrorMessage = "Фамилия должна содержать только буквы")]
+    public string LastName { get; set; } = null!;
+
+    [Column(name: "surname")]
+    [StringLength(50, ErrorMessage = "Отчество не должно превышать 50 символов")]
+    [RegularExpression(@"^[A-Za-zА-Яа-я]+$", ErrorMessage = "Отчество должно содержать только буквы")]
+    public string? Surname { get; set; }
 
     [Column(name: "email")]
     [Required(ErrorMessage = "Поле электронной почты является обязательным параметром")]
@@ -36,9 +54,11 @@ public partial class UserAccount
 
     [Column(name: "card_id")]
     [Required]
-    public int? CardId { get; set; }
-
-    public virtual Card? Card { get; set; }
+    public long CardId { get; set; }
+    
+    [JsonIgnore]
+    public Card? Card { get; set; }
+    public virtual ICollection<UserRole> Roles { get; set; } = new List<UserRole>();
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
@@ -46,16 +66,13 @@ public partial class UserAccount
 
     public virtual ICollection<Hotel> Hotels { get; set; } = new List<Hotel>();
 
-    public virtual ICollection<PaymentTravel> PaymentTravels { get; set; } = new List<PaymentTravel>();
+    //public virtual ICollection<PaymentTravel> PaymentTravels { get; set; } = new List<PaymentTravel>();
 
-    public virtual ICollection<RequestServiceReview> RequestServiceReviews { get; set; } = new List<RequestServiceReview>();
+    //public virtual ICollection<RequestServiceReview> RequestServiceReviews { get; set; } = new List<RequestServiceReview>();
 
     public virtual ICollection<RequestService> RequestServices { get; set; } = new List<RequestService>();
 
-    public virtual ICollection<RequestService> RequestServiceUserAccounts { get; set; } = new List<RequestService>();
+    //public virtual ICollection<RequestService> RequestServiceUserAccounts { get; set; } = new List<RequestService>();
 
-    public virtual ICollection<TravelReview> TravelReviews { get; set; } = new List<TravelReview>();
-
-    public virtual ICollection<UserRole> Roles { get; set; } = new List<UserRole>();
+    //public virtual ICollection<TravelReview> TravelReviews { get; set; } = new List<TravelReview>();
 }
-*/

@@ -1,5 +1,6 @@
-﻿/*using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HotelAPI.Models;
 
@@ -22,6 +23,12 @@ public partial class Hotel
     [StringLength(30, MinimumLength = 1, ErrorMessage = "Поле адрес должно содержать от 1 до 30 символов")]
     [RegularExpression(@"^[A-Za-zА-Яа-я]+$", ErrorMessage = "Название адреса должно содержать только буквы")]
     public string Address { get; set; } = null!;
+
+    [Column(name: "city")]
+    [Required(ErrorMessage = "Поле город является обязательным параметром")]
+    [StringLength(30, MinimumLength = 1, ErrorMessage = "Поле город должно содержать от 1 до 30 символов")]
+    [RegularExpression(@"^[A-Za-zА-Яа-я]+$", ErrorMessage = "Название город должно содержать только буквы")]
+    public string City { get; set; } = null!;
 
     [Column(name: "description")]
     public string? Description { get; set; }
@@ -53,8 +60,10 @@ public partial class Hotel
     [Required]
     public int HotelTypeId { get; set; }
 
+    [JsonIgnore]
     public virtual HotelType? HotelType { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual UserAccount? Manager { get; set; } = null!;
 
     public virtual ICollection<HotelReview> HotelReviews { get; set; } = new List<HotelReview>();
@@ -63,6 +72,5 @@ public partial class Hotel
 
     public virtual ICollection<Service> Services { get; set; } = new List<Service>();
 
-    public virtual ICollection<Travel> Travels { get; set; } = new List<Travel>();
+    //public virtual ICollection<Travel> Travels { get; set; } = new List<Travel>();
 }
-*/

@@ -1,4 +1,4 @@
-﻿/*using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelAPI.Models;
@@ -38,4 +38,3 @@ public partial class Booking
 
     public virtual UserAccount UserAccount { get; set; } = null!;
 }
-*/

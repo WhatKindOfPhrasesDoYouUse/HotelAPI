@@ -1,8 +1,12 @@
-﻿/*using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelAPI.Models;
 
+/// <summary>
+/// TODO:
+/// 1. Добавить рейтинг в логическую схему данных
+/// </summary>
 [Table(name: "hotel_review", Schema = "core")]
 public partial class HotelReview
 {
@@ -36,4 +40,3 @@ public partial class HotelReview
 
     public virtual UserAccount UserAccount { get; set; } = null!;
 }
-*/
