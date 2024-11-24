@@ -11,7 +11,7 @@ public partial class PaymentTravel
     [Column(name: "id")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [Column(name: "price")]
     [Required(ErrorMessage = "Поле цены является обязательным")]
@@ -29,11 +29,11 @@ public partial class PaymentTravel
 
     [Column(name: "travel_id")]
     [Required]
-    public int TravelId { get; set; }
+    public long TravelId { get; set; }
 
     [Column(name: "user_account_id")]
     [Required]
-    public int UserAccountId { get; set; }
+    public long UserAccountId { get; set; }
 
     public virtual Travel Travel { get; set; } = null!;
 

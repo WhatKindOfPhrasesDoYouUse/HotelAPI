@@ -22,7 +22,7 @@ namespace HotelAPI.Controllers
 
             if (requestServices == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             return Ok(requestServices);

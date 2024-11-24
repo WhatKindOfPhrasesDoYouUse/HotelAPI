@@ -21,10 +21,28 @@ namespace HotelAPI.Controllers
 
             if (hotelTypes == null)
             {
-                return NotFound("Типы отелей не найдены");
+                return NotFound();
             }
 
             return Ok(hotelTypes);
+        }
+
+        [HttpGet("GetHotelType/{id}")]
+        public async Task<IActionResult> GetHotelType(long id)
+        {
+            if (id <= 0)
+            {
+                return NoContent();
+            }
+
+            var hotelType = await _hotelTypeService.GetHotelTypeById(id);
+
+            if (hotelType == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(hotelType);
         }
     }
 }

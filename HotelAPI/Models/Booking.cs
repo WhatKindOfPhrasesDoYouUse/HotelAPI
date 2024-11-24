@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HotelAPI.Models;
 
@@ -9,7 +10,7 @@ public partial class Booking
     [Column(name: "id")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [Column(name: "check_in")]
     [Required(ErrorMessage = "Дата заселения является обязательным параметром")]
@@ -26,12 +27,13 @@ public partial class Booking
 
     [Column(name: "user_account_id")]
     [Required]
-    public int UserAccountId { get; set; }
+    public long UserAccountId { get; set; }
 
     [Column(name: "room_id")]
     [Required]
-    public int RoomId { get; set; }
+    public long RoomId { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<PaymentRoom> PaymentRooms { get; set; } = new List<PaymentRoom>();
 
     public virtual Room Room { get; set; } = null!;

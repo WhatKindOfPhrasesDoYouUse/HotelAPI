@@ -23,7 +23,7 @@ namespace HotelAPI.Controllers
 
             if (hotelReviews == null)
             {
-                return NotFound("Отзывы на отели не найдены");
+                return NotFound();
             }
 
             return Ok(hotelReviews);

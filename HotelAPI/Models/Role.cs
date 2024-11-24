@@ -10,7 +10,7 @@ public partial class Role
     [Column(name: "id")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [Column(name: "name")]
     [Required(ErrorMessage = "Поле названия рои является обязательным параметром")]

@@ -13,7 +13,7 @@ public partial class HotelReview
     [Column(name: "id")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [Column(name: "comment")]
     [Required(ErrorMessage = "Поле комментария является обязательным параметром")]
@@ -30,11 +30,11 @@ public partial class HotelReview
 
     [Column(name: "hotel_id")]
     [Required]
-    public int HotelId { get; set; }
+    public long HotelId { get; set; }
 
     [Column(name: "user_account_id")]
     [Required]
-    public int UserAccountId { get; set; }
+    public long UserAccountId { get; set; }
 
     public virtual Hotel Hotel { get; set; } = null!;
 

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HotelAPI.Models;
 
@@ -29,5 +30,6 @@ public partial class Card
     [RegularExpression(@"^(0[1-9]|1[0-2])/[0-9]{2}$", ErrorMessage = "Дата должна быть в формате MM/YY")]
     public string Date { get; set; } = null!;
 
+    [JsonIgnore]
     public UserAccount? UserAccount { get; set; }
 }

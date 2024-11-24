@@ -16,7 +16,10 @@ namespace HotelAPI.Services
 
         public async Task<IEnumerable<Hotel>> GetAllHotels()
         {
-            var hotels = await _context.Hotels.ToListAsync();
+            var hotels = await _context.Hotels
+                .Include(h => h.Manager)
+                .Include(h => h.HotelType)
+                .ToListAsync();
 
             if (hotels != null || hotels.Any())
             {

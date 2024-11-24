@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HotelAPI.Models;
 
@@ -9,7 +10,7 @@ public partial class Room
     [Column(name: "id")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [Column(name: "room_type")]
     [Required(ErrorMessage = "Тип комнаты является обязательным параметром")]
@@ -36,11 +37,13 @@ public partial class Room
 
     [Column(name: "hotel_id")]
     [Required]
-    public int HotelId { get; set; }
+    public long HotelId { get; set; }
 
     public virtual Hotel Hotel { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
+    [JsonIgnore]
     public virtual ICollection<RoomComfort> Comforts { get; set; } = new List<RoomComfort>();
 }

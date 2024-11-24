@@ -21,7 +21,7 @@ namespace HotelAPI.Contracts
 
             if (services == null)
             {
-                return BadRequest("В списке нет сервисных услуг");
+                return NotFound();
             }
 
             return Ok(services);

@@ -21,10 +21,8 @@ namespace HotelAPI.Controllers
 
             if (userRole == null)
             {
-                return BadRequest("В списке нет связок между пользователями и ролями");
+                return NotFound();
             }
-
-
 
             return Ok(userRole);
         }

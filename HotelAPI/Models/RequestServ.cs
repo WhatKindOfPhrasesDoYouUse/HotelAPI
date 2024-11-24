@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HotelAPI.Models;
 
@@ -9,7 +10,7 @@ public partial class RequestServ
     [Column(name: "id")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [Column(name: "request_date")]
     [Required(ErrorMessage = "Дата запроса является обязательным параметром")]
@@ -34,13 +35,14 @@ public partial class RequestServ
 
     [Column(name: "service_id")]
     [Required]
-    public int ServiceId { get; set; }
+    public long ServiceId { get; set; }
 
     [Column(name: "user_account_id")]
     [Required]
-    public int UserAccountId { get; set; }
+    public long UserAccountId { get; set; }
     public virtual Serv Service { get; set; } = null!;
     public virtual UserAccount UserAccount { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual ICollection<RequestServReview> RequestServiceReviews { get; set; } = new List<RequestServReview>();
 }

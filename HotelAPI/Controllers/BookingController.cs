@@ -22,7 +22,7 @@ namespace HotelAPI.Controllers
 
             if (bookings == null)
             {
-                return BadRequest("В списке нет броней");
+                return NotFound();
             }
 
             return Ok(bookings);

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HotelAPI.Models;
 
@@ -9,7 +10,7 @@ public partial class Serv
     [Column(name: "id")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [Column(name: "name")]
     [Required(ErrorMessage = "Поле названия сервиса является обязательным параметром")]
@@ -27,9 +28,10 @@ public partial class Serv
 
     [Column(name: "hotel_id")]
     [Required]
-    public int HotelId { get; set; }
+    public long HotelId { get; set; }
 
     public virtual Hotel Hotel { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual ICollection<RequestServ> RequestServices { get; set; } = new List<RequestServ>();
 }

@@ -22,7 +22,7 @@ namespace HotelAPI.Controllers
 
             if (rooms == null)
             {
-                return NotFound("Комнаты не найдены");
+                return NotFound();
             }
 
             return Ok(rooms);

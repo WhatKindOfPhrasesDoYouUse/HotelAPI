@@ -21,7 +21,7 @@ namespace HotelAPI.Controllers
 
             if (hotels == null)
             {
-                return NotFound("Отели не найдены");
+                return NotFound();
             }
 
             return Ok(hotels);

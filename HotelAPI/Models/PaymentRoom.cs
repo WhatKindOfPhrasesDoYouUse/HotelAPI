@@ -11,7 +11,7 @@ public partial class PaymentRoom
     [Column(name: "id")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [Column(name: "price")]
     [Required(ErrorMessage = "Поле цены является обязательным параметром")]
@@ -34,7 +34,7 @@ public partial class PaymentRoom
 
     [Column(name: "booking_id")]
     [Required]
-    public int BookingId { get; set; }
+    public long BookingId { get; set; }
 
     public virtual Booking Booking { get; set; } = null!;
 }

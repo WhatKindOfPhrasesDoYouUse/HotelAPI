@@ -22,7 +22,7 @@ namespace HotelAPI.Controllers
 
             if (roomComfort == null)
             {
-                return BadRequest();
+                return NotFound();
             }
             return Ok(roomComfort);
         }

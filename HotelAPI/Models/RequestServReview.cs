@@ -9,7 +9,7 @@ public partial class RequestServReview
     [Column(name: "id")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [Column(name: "comment")]
     [Required(ErrorMessage = "Комментарий является обязательным параметром")]
@@ -26,11 +26,11 @@ public partial class RequestServReview
 
     [Column(name: "request_service_id")]
     [Required]
-    public int RequestServiceId { get; set; }
+    public long RequestServiceId { get; set; }
 
     [Column(name: "user_account_id")]
     [Required]
-    public int UserAccountId { get; set; }
+    public long UserAccountId { get; set; }
 
     public virtual RequestServ RequestServ { get; set; } = null!;
 

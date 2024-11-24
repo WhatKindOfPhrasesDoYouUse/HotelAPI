@@ -22,7 +22,7 @@ namespace HotelAPI.Controllers
 
             if (comforts == null)
             {
-                return BadRequest("Список дополнительных услуг комфорт отсутствует");
+                return NotFound();
             }
 
             return Ok(comforts);

@@ -9,11 +9,11 @@ public partial class UserRole
 {
     [Column(name: "user_id")]
     [Required]
-    public int UserId { get; set; }
+    public long UserId { get; set; }
 
     [Column(name: "role_id")]
     [Required]
-    public int RoleId { get; set; }
+    public long RoleId { get; set; }
 
     public virtual Role Role { get; set; } = null!;
 

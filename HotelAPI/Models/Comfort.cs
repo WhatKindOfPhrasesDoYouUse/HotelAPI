@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HotelAPI.Models;
 
@@ -10,7 +11,7 @@ public partial class Comfort
     [Column(name: "id")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [Column(name: "name")]
     [Required(ErrorMessage = "Поле названия услуги комфорта комнаты является обязательным параметром")]
@@ -21,5 +22,6 @@ public partial class Comfort
     [Column(name: "description")]
     public string? Description { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<RoomComfort> Rooms { get; set; } = new List<RoomComfort>();
 }

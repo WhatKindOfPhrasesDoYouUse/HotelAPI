@@ -16,7 +16,9 @@ namespace HotelAPI.Services
 
         public async Task<IEnumerable<HotelType>> GetAllHotelTypes()
         {
-            var hotelTypes = await _context.HotelTypes.ToListAsync();
+            var hotelTypes = await _context.HotelTypes
+                .Include(ht => ht.Hotels)
+                .ToListAsync();
 
             if (hotelTypes != null || hotelTypes.Any())
             {
@@ -25,6 +27,22 @@ namespace HotelAPI.Services
             else
             {
                 return null;
+            }
+        }
+
+        public async Task<HotelType?> GetHotelTypeById(long id)
+        {
+            var hotelType = await _context.HotelTypes
+                .Include(ht => ht.Hotels)
+                .FirstOrDefaultAsync(ht => ht.Id == id);
+
+            if (hotelType == null)
+            {
+                return null;
+            }
+            else
+            {
+                return hotelType;
             }
         }
     }

@@ -9,7 +9,7 @@ public partial class TravelReview
     [Column(name: "id")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [Column(name: "comment")]
     [Required(ErrorMessage = "Поле комментарий является обязательным параметром")]
@@ -21,7 +21,7 @@ public partial class TravelReview
 
     [Column(name: "travel_id")]
     [Required]
-    public int TravelId { get; set; }
+    public long TravelId { get; set; }
 
     [Column(name: "rating")]
     [Required(ErrorMessage = "Поле оставленного рейтинга является обязательным параметром")]
@@ -30,7 +30,7 @@ public partial class TravelReview
 
     [Column(name: "user_account_id")]
     [Required]
-    public int UserAccountId { get; set; }
+    public long UserAccountId { get; set; }
 
     public virtual Travel Travel { get; set; } = null!;
 

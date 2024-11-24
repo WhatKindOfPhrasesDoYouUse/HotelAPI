@@ -22,7 +22,7 @@ namespace HotelAPI.Controllers
 
             if (paymentRooms == null)
             {
-                return BadRequest("В списке нет оплат за комнату");
+                return NotFound();
             }
 
             return Ok(paymentRooms);

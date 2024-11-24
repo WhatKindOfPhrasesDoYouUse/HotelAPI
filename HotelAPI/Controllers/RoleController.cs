@@ -23,7 +23,7 @@ namespace HotelAPI.Controllers
 
             if (roles == null)
             {
-                return BadRequest("В списке нет ролей");
+                return NotFound();
             }
 
             return Ok(roles);

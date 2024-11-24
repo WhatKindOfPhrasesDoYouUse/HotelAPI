@@ -10,7 +10,7 @@ public partial class UserAccount
     [Column(name: "id")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [Column(name: "first_name")]
     [Required(ErrorMessage = "Поле имени является обязательным параметром")]
@@ -58,16 +58,26 @@ public partial class UserAccount
     
     [JsonIgnore]
     public Card? Card { get; set; }
+
+    [JsonIgnore]
     public virtual ICollection<UserRole> Roles { get; set; } = new List<UserRole>();
 
+    [JsonIgnore]
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
+    [JsonIgnore]
     public virtual ICollection<HotelReview> HotelReviews { get; set; } = new List<HotelReview>();
 
+    [JsonIgnore]
     public virtual ICollection<Hotel> Hotels { get; set; } = new List<Hotel>();
-    public virtual ICollection<RequestServ> RequestServices { get; set; } = new List<RequestServ>();
-    public virtual ICollection<RequestServReview> RequestServiceReviews { get; set; } = new List<RequestServReview>();
 
+    [JsonIgnore]
+    public virtual ICollection<RequestServ> RequestServices { get; set; } = new List<RequestServ>();
+
+    [JsonIgnore]
+    public virtual ICollection<RequestServReview> RequestServiceReviews { get; set; } = new List<RequestServReview>();
+    [JsonIgnore]
     public virtual ICollection<PaymentTravel> PaymentTravels { get; set; } = new List<PaymentTravel>();
+    [JsonIgnore]
     public virtual ICollection<TravelReview> TravelReviews { get; set; } = new List<TravelReview>();
 }

@@ -36,7 +36,7 @@ namespace HotelAPI.Controllers
         {
             if (id <= 0)
             {
-                return BadRequest("Некоректный ID");
+                return NoContent();
             }
 
             var card = await _cardService.GetCardById(id);

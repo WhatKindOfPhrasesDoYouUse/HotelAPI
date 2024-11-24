@@ -8,11 +8,11 @@ public partial class RoomComfort
 {
     [Column(name: "room_id")]
     [Required]
-    public int RoomId { get; set; }
+    public long RoomId { get; set; }
 
     [Column(name: "comfort_id")]
     [Required]
-    public int ComfortId { get; set; }
+    public long ComfortId { get; set; }
 
     public virtual Comfort Comfort { get; set; } = null!;
 

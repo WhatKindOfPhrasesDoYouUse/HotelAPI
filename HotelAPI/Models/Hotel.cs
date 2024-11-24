@@ -10,7 +10,7 @@ public partial class Hotel
     [Column(name: "id")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [Column(name: "name")]
     [Required(ErrorMessage = "Поле названия отеля является обязательным параметром")]
@@ -54,23 +54,25 @@ public partial class Hotel
 
     [Column(name: "manager_id")]
     [Required]
-    public int ManagerId { get; set; }
+    public long ManagerId { get; set; }
 
     [Column(name: "hotel_type_id")]
     [Required]
-    public int HotelTypeId { get; set; }
+    public long HotelTypeId { get; set; }
 
-    [JsonIgnore]
     public virtual HotelType? HotelType { get; set; } = null!;
 
-    [JsonIgnore]
     public virtual UserAccount? Manager { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual ICollection<HotelReview> HotelReviews { get; set; } = new List<HotelReview>();
 
+    [JsonIgnore]
     public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
 
+    [JsonIgnore]
     public virtual ICollection<Serv> Services { get; set; } = new List<Serv>();
 
+    [JsonIgnore]
     public virtual ICollection<Travel> Travels { get; set; } = new List<Travel>();
 }

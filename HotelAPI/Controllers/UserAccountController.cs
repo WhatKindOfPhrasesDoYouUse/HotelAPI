@@ -22,7 +22,7 @@ namespace HotelAPI.Controllers
 
             if (userAccounts == null)
             {
-                return BadRequest("В списке нет карт");
+                return NotFound();
             }
 
             return Ok(userAccounts);
