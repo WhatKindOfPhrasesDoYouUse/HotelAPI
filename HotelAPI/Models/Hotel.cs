@@ -70,7 +70,7 @@ public partial class Hotel
 
     public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
 
-    public virtual ICollection<Service> Services { get; set; } = new List<Service>();
+    public virtual ICollection<Serv> Services { get; set; } = new List<Serv>();
 
-    //public virtual ICollection<Travel> Travels { get; set; } = new List<Travel>();
+    public virtual ICollection<Travel> Travels { get; set; } = new List<Travel>();
 }

@@ -1,10 +1,10 @@
-﻿/*using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelAPI.Models;
 
 [Table(name: "request_service_review", Schema = "core")]
-public partial class RequestServiceReview
+public partial class RequestServReview
 {
     [Column(name: "id")]
     [Key]
@@ -32,8 +32,7 @@ public partial class RequestServiceReview
     [Required]
     public int UserAccountId { get; set; }
 
-    public virtual RequestService RequestService { get; set; } = null!;
+    public virtual RequestServ RequestServ { get; set; } = null!;
 
     public virtual UserAccount UserAccount { get; set; } = null!;
 }
-*/

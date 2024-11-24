@@ -3,8 +3,8 @@
 namespace HotelAPI.Contracts
 {
     // Это сущность service из бд
-    public interface IServiceHandler
+    public interface IServService
     {
-        Task<IEnumerable<Service>> GetAllServices();
+        Task<IEnumerable<Serv>> GetAllServices();
     }
 }

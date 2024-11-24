@@ -5,11 +5,11 @@ namespace HotelAPI.Contracts
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServiceHandlerController : ControllerBase
+    public class ServController : ControllerBase
     {
-        private readonly IServiceHandler _serviceHandler;
+        private readonly IServService _serviceHandler;
 
-        public ServiceHandlerController(IServiceHandler serviceHandler)
+        public ServController(IServService serviceHandler)
         {
             this._serviceHandler = serviceHandler;
         }

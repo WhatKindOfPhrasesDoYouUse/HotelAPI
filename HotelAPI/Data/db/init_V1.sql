@@ -290,3 +290,9 @@ DROP CONSTRAINT card_name_key;
 
 ALTER TABLE core.payment_room
 ADD COLUMN payment_type VARCHAR(30) NOT NULL;
+
+ALTER TABLE request_service DROP CONSTRAINT request_service_service_id_fkey;
+
+ALTER TABLE request_service
+ADD CONSTRAINT request_service_service_id_fkey FOREIGN KEY (service_id) REFERENCES service(id) ON UPDATE CASCADE ON DELETE CASCADE;
+

@@ -5,27 +5,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelAPI.Services
 {
-    public class ServiceHandler : IServiceHandler
+    public class TravelReviewService : ITravelReviewService
     {
         private readonly ApplicationDbContext _context;
 
-        public ServiceHandler(ApplicationDbContext context)
+        public TravelReviewService(ApplicationDbContext context)
         {
             this._context = context;
         }
 
-        public async Task<IEnumerable<Service>> GetAllServices()
+        public async Task<IEnumerable<TravelReview>> GetAllTravelReviews()
         {
-            var services = await _context.Services.ToListAsync();
+            var travelReviews = await _context.TravelReviews.ToListAsync();
 
-            if (services != null || services.Any())
+            if (travelReviews != null || travelReviews.Any())
             {
-                return services;
+                return travelReviews;
             }
             else
             {
                 return null;
             }
         }
+
     }
 }

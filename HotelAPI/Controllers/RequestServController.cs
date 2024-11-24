@@ -6,23 +6,23 @@ namespace HotelAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RequestServiceController : ControllerBase
+    public class RequestServController : ControllerBase
     {
-        private readonly IRequestService _requestService;
+        private readonly IRequestServService _requestServService;
 
-        public RequestServiceController(IRequestService requestService)
+        public RequestServController(IRequestServService requestServService)
         {
-            this._requestService = requestService;
+            _requestServService = requestServService;
         }
 
         [HttpGet("GetRequestServices")]
         public async Task<IActionResult> GetRequestServices()
         {
-            var requestServices = await _requestService.GetAllRequestServices();
+            var requestServices = await _requestServService.GetAllRequestServices();
 
             if (requestServices == null)
             {
-                return BadRequest("В списке нет запроса на такую услугу");
+                return BadRequest();
             }
 
             return Ok(requestServices);

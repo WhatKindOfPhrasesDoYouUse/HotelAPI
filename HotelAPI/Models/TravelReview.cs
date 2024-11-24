@@ -1,4 +1,4 @@
-﻿/*using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelAPI.Models;
@@ -36,4 +36,3 @@ public partial class TravelReview
 
     public virtual UserAccount UserAccount { get; set; } = null!;
 }
-*/

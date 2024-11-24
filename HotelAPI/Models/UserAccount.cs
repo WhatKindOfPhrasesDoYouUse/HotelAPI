@@ -65,14 +65,9 @@ public partial class UserAccount
     public virtual ICollection<HotelReview> HotelReviews { get; set; } = new List<HotelReview>();
 
     public virtual ICollection<Hotel> Hotels { get; set; } = new List<Hotel>();
+    public virtual ICollection<RequestServ> RequestServices { get; set; } = new List<RequestServ>();
+    public virtual ICollection<RequestServReview> RequestServiceReviews { get; set; } = new List<RequestServReview>();
 
-    //public virtual ICollection<PaymentTravel> PaymentTravels { get; set; } = new List<PaymentTravel>();
-
-    //public virtual ICollection<RequestServiceReview> RequestServiceReviews { get; set; } = new List<RequestServiceReview>();
-
-    public virtual ICollection<RequestService> RequestServices { get; set; } = new List<RequestService>();
-
-    //public virtual ICollection<RequestService> RequestServiceUserAccounts { get; set; } = new List<RequestService>();
-
-    //public virtual ICollection<TravelReview> TravelReviews { get; set; } = new List<TravelReview>();
+    public virtual ICollection<PaymentTravel> PaymentTravels { get; set; } = new List<PaymentTravel>();
+    public virtual ICollection<TravelReview> TravelReviews { get; set; } = new List<TravelReview>();
 }

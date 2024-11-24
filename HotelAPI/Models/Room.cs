@@ -42,5 +42,5 @@ public partial class Room
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
-    //public virtual ICollection<RoomComfort> Comforts { get; set; } = new List<RoomComfort>();
+    public virtual ICollection<RoomComfort> Comforts { get; set; } = new List<RoomComfort>();
 }

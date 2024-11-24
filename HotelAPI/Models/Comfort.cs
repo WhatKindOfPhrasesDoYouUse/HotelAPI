@@ -1,4 +1,4 @@
-﻿/*using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,4 +23,3 @@ public partial class Comfort
 
     public virtual ICollection<RoomComfort> Rooms { get; set; } = new List<RoomComfort>();
 }
-*/

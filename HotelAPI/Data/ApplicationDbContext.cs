@@ -15,13 +15,14 @@ namespace HotelAPI.Data
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<PaymentRoom> PaymentRooms { get; set; }
         public DbSet<HotelReview> HotelReviews { get; set; }
-        public DbSet<Service> Services { get; set; }
-        public DbSet<RequestService> RequestServices { get; set; }
-        //public DbSet<RequestServiceReview> RequestServiceReviews { get; set; }
-        //public DbSet<Comfort> Comforts { get; set; }
-        //public DbSet<RoomComfort> RoomComforts { get; set; }
-        //public DbSet<Travel> Travels { get; set; }
-        //public DbSet<TravelReview> TravelReviews { get; set; }
+        public DbSet<Serv> Services { get; set; }
+        public DbSet<RequestServ> RequestServices { get; set; }
+        public DbSet<RequestServReview> RequestServiceReviews { get; set; }
+        public DbSet<Comfort> Comforts { get; set; }
+        public DbSet<PaymentTravel> PaymentTravels { get; set; }
+        public DbSet<RoomComfort> RoomComforts { get; set; }
+        public DbSet<Travel> Travels { get; set; }
+        public DbSet<TravelReview> TravelReviews { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -165,11 +166,11 @@ namespace HotelAPI.Data
 
             // Конфигурация Service
 
-            modelBuilder.Entity<Service>()
+            modelBuilder.Entity<Serv>()
                 .HasIndex(s => s.Name)
                 .IsUnique();
 
-            modelBuilder.Entity<Service>()
+            modelBuilder.Entity<Serv>()
                 .HasOne(h => h.Hotel)
                 .WithMany(s => s.Services)
                 .HasForeignKey(k => k.HotelId)
@@ -177,29 +178,15 @@ namespace HotelAPI.Data
 
             // Конфигурация Request Service
 
-            modelBuilder.Entity<RequestService>()
+            modelBuilder.Entity<RequestServ>()
                 .HasOne(s => s.Service)
                 .WithMany(rs => rs.RequestServices)
                 .HasForeignKey(k => k.ServiceId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<RequestService>()
+            modelBuilder.Entity<RequestServ>()
                 .HasOne(ua => ua.UserAccount)
                 .WithMany(rs => rs.RequestServices)
-                .HasForeignKey(k => k.UserAccountId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            /* // Конфигурация RequestServiceReview
-
-            modelBuilder.Entity<RequestServiceReview>()
-                .HasOne(rs => rs.RequestService)
-                .WithMany(rsr => rsr.RequestServiceReviews)
-                .HasForeignKey(k => k.RequestServiceId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<RequestServiceReview>()
-                .HasOne(ua => ua.UserAccount)
-                .WithMany(rsr => rsr.RequestServiceReviews)
                 .HasForeignKey(k => k.UserAccountId)
                 .OnDelete(DeleteBehavior.Cascade);
 
@@ -208,6 +195,60 @@ namespace HotelAPI.Data
             modelBuilder.Entity<Comfort>()
                 .HasIndex(c => c.Name)
                 .IsUnique();
+
+            // Конфигурация RequestServReview
+
+            modelBuilder.Entity<RequestServReview>()
+                .HasOne(rs => rs.RequestServ)
+                .WithMany(rsr => rsr.RequestServiceReviews)
+                .HasForeignKey(k => k.RequestServiceId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<RequestServReview>()
+                .HasOne(ua => ua.UserAccount)
+                .WithMany(rsr => rsr.RequestServiceReviews)
+                .HasForeignKey(k => k.UserAccountId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Конфигурация Travel
+
+            modelBuilder.Entity<Travel>()
+                .HasIndex(t => t.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<Travel>()
+                .HasOne(h => h.Hotel)
+                .WithMany(t => t.Travels)
+                .HasForeignKey(k => k.HotelId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Конфигурация PaymentTravel
+
+            modelBuilder.Entity<PaymentTravel>()
+                .HasOne(t => t.UserAccount)
+                .WithMany(pt => pt.PaymentTravels)
+                .HasForeignKey(fk => fk.TravelId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PaymentTravel>()
+                .HasOne(t => t.Travel)
+                .WithMany(pt => pt.PaymentTravels)
+                .HasForeignKey(fk => fk.TravelId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Конфигурация TravelReview
+
+            modelBuilder.Entity<TravelReview>()
+                .HasOne(t => t.Travel)
+                .WithMany(tr => tr.TravelReviews)
+                .HasForeignKey(k => k.TravelId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<TravelReview>()
+                .HasOne(ua => ua.UserAccount)
+                .WithMany(tr => tr.TravelReviews)
+                .HasForeignKey(k => k.TravelId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Конфигурация RoomComfort
 
@@ -223,32 +264,6 @@ namespace HotelAPI.Data
                 .HasOne(c => c.Comfort)
                 .WithMany(r => r.Rooms)
                 .HasForeignKey(k => k.ComfortId);
-
-            // Конфигурация Travel
-
-            modelBuilder.Entity<Travel>()
-                .HasIndex(t => t.Name)
-                .IsUnique();
-
-            modelBuilder.Entity<Travel>()
-                .HasOne(h => h.Hotel)
-                .WithMany(t => t.Travels)
-                .HasForeignKey(k => k.HotelId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            // Конфигурация TravelReview
-
-            modelBuilder.Entity<TravelReview>()
-                .HasOne(t => t.Travel)
-                .WithMany(tr => tr.TravelReviews)
-                .HasForeignKey(k => k.TravelId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<TravelReview>()
-                .HasOne(ua => ua.UserAccount)
-                .WithMany(tr => tr.TravelReviews)
-                .HasForeignKey(k => k.TravelId)
-                .OnDelete(DeleteBehavior.Cascade);*/
 
             base.OnModelCreating(modelBuilder);
         }

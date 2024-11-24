@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace HotelAPI.Models;
 
 [Table(name: "service", Schema = "core")]
-public partial class Service
+public partial class Serv
 {
     [Column(name: "id")]
     [Key]
@@ -30,4 +30,6 @@ public partial class Service
     public int HotelId { get; set; }
 
     public virtual Hotel Hotel { get; set; } = null!;
+
+    public virtual ICollection<RequestServ> RequestServices { get; set; } = new List<RequestServ>();
 }
