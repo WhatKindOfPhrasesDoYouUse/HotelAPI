@@ -46,6 +46,8 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddAutoMapper(typeof(Program));
+
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())

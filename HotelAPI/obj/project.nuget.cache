@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "1Yhf4MM6Y7ukaWMTdfJqipf7bHGgKsPrQPqE2LUzJPUbCZf+rUCIVGe7Vd5gVlwoAD9qSf0Qmnkud4HkZvhsyg==",
+  "dgSpecHash": "MAy0QeL9abBQoZtiT1o2lFtJqyY8l0XMXOOMGaZSKU/FlHlDX58f0nkDy3venUdhsVNJTzKHhHJoM4t84NfErQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\mazaf\\source\\repos\\HotelAPI\\HotelAPI\\HotelAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\mazaf\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\mazaf\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\mazaf\\.nuget\\packages\\magic.automapper\\2.0.0\\magic.automapper.2.0.0.nupkg.sha512",
+    "C:\\Users\\mazaf\\.nuget\\packages\\magic.automapper.extensions.microsoft.dependencyinjection\\2.0.0\\magic.automapper.extensions.microsoft.dependencyinjection.2.0.0.nupkg.sha512",
     "C:\\Users\\mazaf\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\mazaf\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.3\\microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",
     "C:\\Users\\mazaf\\.nuget\\packages\\microsoft.codeanalysis.common\\4.5.0\\microsoft.codeanalysis.common.4.5.0.nupkg.sha512",

@@ -1,6 +1,6 @@
 ﻿namespace HotelAPI.DTO
 {
-    public class HotelDto
+    public class HotelDTO
     {
         public long Id { get; set; }
         public string Name { get; set; }

@@ -38,7 +38,6 @@ namespace HotelAPI.Data
                 .HasIndex(c => c.Number)
                 .IsUnique();
 
-
             // Конфигурация UserAccount
 
             modelBuilder.Entity<UserAccount>()
