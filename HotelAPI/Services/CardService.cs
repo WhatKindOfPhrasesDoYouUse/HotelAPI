@@ -166,9 +166,9 @@ namespace HotelAPI.Services
         /// </returns>
         public async Task<bool> UpdateCard(Card card)
         {
-            var existingCard = await _context.Cards
-                .Include(c => c.UserAccount)
-                .SingleOrDefaultAsync(c => c.Id == card.Id);
+                var existingCard = await _context.Cards
+                    .Include(c => c.UserAccount)
+                    .SingleOrDefaultAsync(c => c.Id == card.Id);
 
             if (existingCard == null) 
             {

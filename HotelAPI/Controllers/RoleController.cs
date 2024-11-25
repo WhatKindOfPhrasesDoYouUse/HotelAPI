@@ -74,5 +74,23 @@ namespace HotelAPI.Controllers
 
             return CreatedAtAction(nameof(AddRole), new { id = role.Id }, role);
         }
+
+        [HttpPut("UpdateRole")]
+        public async Task<IActionResult> UpdateRole([FromBody] Role role)
+        {
+            if (role == null || role.Id <= 0)
+            {
+                return BadRequest("Введены некорректные данные");
+            }
+
+            bool isUpdated = await _roleService.UpdateRole(role);
+
+            if (!isUpdated)
+            {
+                return NotFound($"Роль с id: {role.Id} не найдена");
+            }
+
+            return Ok($"Роль с ID {role.Id} успешно обновлена.");
+        }
     }
 }

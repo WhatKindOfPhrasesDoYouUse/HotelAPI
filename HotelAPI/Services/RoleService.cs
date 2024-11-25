@@ -136,5 +136,22 @@ namespace HotelAPI.Services
 
             return true;
         }
+
+        public async Task<bool> UpdateRole(Role role)
+        {
+            var existingRole = await _context.Roles
+                .Include(r => r.UserAccounts)
+                .SingleOrDefaultAsync(r => r.Id == role.Id);
+
+            if (existingRole == null) 
+            {
+                return false;
+            }
+
+            existingRole.Name = role.Name;
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }
