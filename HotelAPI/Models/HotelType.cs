@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
 namespace HotelAPI.Models;
 
@@ -20,7 +19,5 @@ public partial class HotelType
 
     [Column(name: "description")]
     public string? Description { get; set; }
-
-    [JsonIgnore]
     public virtual ICollection<Hotel> Hotels { get; set; } = new List<Hotel>();
 }

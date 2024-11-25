@@ -1,5 +1,6 @@
 ﻿using HotelAPI.Contracts;
 using HotelAPI.Data;
+using HotelAPI.DTO;
 using HotelAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,21 +15,28 @@ namespace HotelAPI.Services
             this._context = context;
         }
 
-        public async Task<IEnumerable<HotelType>> GetAllHotelTypes()
+        /*public async Task<IEnumerable<HotelTypeDTO>> GetAllHotelTypes()
         {
             var hotelTypes = await _context.HotelTypes
                 .Include(ht => ht.Hotels)
                 .ToListAsync();
 
-            if (hotelTypes != null || hotelTypes.Any())
+            if (hotelTypes == null || !hotelTypes.Any())
             {
-                return hotelTypes;
+                return Enumerable.Empty<HotelTypeDTO>();
             }
-            else
+
+            var hotelTypeDTOs = hotelTypes.Select(ht => new HotelTypeDTO
             {
-                return null;
-            }
-        }
+                Id = ht.Id,
+                Name = ht.Name,
+                Description = ht.Description,
+                HotelIds = ht.Hotels.Select(h => h.Id).ToList()
+            });
+
+            return hotelTypeDTOs;
+
+        }*/
 
         public async Task<HotelType?> GetHotelTypeById(long id)
         {

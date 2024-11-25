@@ -14,7 +14,7 @@ namespace HotelAPI.Controllers
             this._hotelTypeService = hotelTypeService;
         }
 
-        [HttpGet("GetHotelTypes")]
+        /*[HttpGet("GetHotelTypes")]
         public async Task<IActionResult> GetHotelTypes()
         {
             var hotelTypes = await _hotelTypeService.GetAllHotelTypes();
@@ -25,9 +25,9 @@ namespace HotelAPI.Controllers
             }
 
             return Ok(hotelTypes);
-        }
+        }*/
 
-        [HttpGet("GetHotelType/{id}")]
+        /*[HttpGet("GetHotelType/{id}")]
         public async Task<IActionResult> GetHotelType(long id)
         {
             if (id <= 0)
@@ -43,6 +43,6 @@ namespace HotelAPI.Controllers
             }
 
             return Ok(hotelType);
-        }
+        }*/
     }
 }

@@ -23,7 +23,7 @@ public class Program
         builder.Services.AddScoped<IBookingService, BookingService>();
         builder.Services.AddScoped<IPaymentRoomService, PaymentRoomService>();
         builder.Services.AddScoped<IHotelReviewService, HotelReviewService>();
-        builder.Services.AddScoped<IServService, HotelAPI.Services.ServService>();
+        builder.Services.AddScoped<IServService, ServService>();
         builder.Services.AddScoped<IComfortService, ComfortService>();
         builder.Services.AddScoped<IRequestServService, RequestServService>();
         builder.Services.AddScoped<IRequestServReviewService, RequestServReviewService>();
