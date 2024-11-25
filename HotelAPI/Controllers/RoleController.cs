@@ -42,19 +42,34 @@ namespace HotelAPI.Controllers
             return Ok(role);
         }
 
-        [HttpPost("AddRole")]
-        public async Task<IActionResult> AddRole(Role role)
+        [HttpDelete("DeleteRoleById/{id}")]
+        public async Task<IActionResult> DeleteRole(long id)
         {
-            if (role == null)
-            {
-                return BadRequest("Некоректные данные");
-            }
-
-            bool result = await _roleService.AddRole(role);
+            bool result = await _roleService.DeleteRoleById(id);
 
             if (!result)
             {
-                return Conflict("Такая роль уже существует");
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost("AddRole")]
+        public async Task<IActionResult> AddRole(Role role)
+        {
+            // Некоректный запрос
+            if (role == null)
+            {
+                return BadRequest();
+            }
+
+            bool result = await _roleService.AddRole(role);
+            
+            // Такая роль уже существует
+            if (!result)
+            {
+                return Conflict();
             }
 
             return CreatedAtAction(nameof(AddRole), new { id = role.Id }, role);
