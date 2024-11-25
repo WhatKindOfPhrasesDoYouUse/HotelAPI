@@ -21,11 +21,11 @@ namespace HotelAPI.Controllers
         [HttpGet("GetCards")]
         public async Task<IActionResult> GetCards()
         {
-            var cards = await _cardService.GetAllCards();
+            var cards= await _cardService.GetAllCards();
 
             if (cards == null)
             {
-                return BadRequest("В списке нет карт"); 
+                return BadRequest(); 
             }
 
             return Ok(cards);

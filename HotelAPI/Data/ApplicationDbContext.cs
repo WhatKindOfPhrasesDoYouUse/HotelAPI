@@ -38,6 +38,7 @@ namespace HotelAPI.Data
                 .HasIndex(c => c.Number)
                 .IsUnique();
 
+
             // Конфигурация UserAccount
 
             modelBuilder.Entity<UserAccount>()
@@ -58,7 +59,7 @@ namespace HotelAPI.Data
                 entity.HasOne(ua => ua.Card)  
                     .WithOne(c => c.UserAccount)  
                     .HasForeignKey<UserAccount>(ua => ua.CardId) 
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             // Конфигурация Role
@@ -81,6 +82,7 @@ namespace HotelAPI.Data
                 .HasOne(ur => ur.Role)
                 .WithMany(r => r.UserAccounts)
                 .HasForeignKey(k => k.RoleId);
+
 
             // Конфигурация HotelType
 

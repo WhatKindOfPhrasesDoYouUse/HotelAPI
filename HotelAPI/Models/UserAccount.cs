@@ -54,7 +54,7 @@ public partial class UserAccount
 
     [Column(name: "card_id")]
     [Required]
-    public long CardId { get; set; }
+    public long? CardId { get; set; }
     
     [JsonIgnore]
     public Card? Card { get; set; }
