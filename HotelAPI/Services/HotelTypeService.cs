@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelAPI.Services
 {
+    /// <summary>
+    /// HotelTypeService реализует бизнес логику API для взаимодействия с картами пользователей
+    /// </summary>
     public class HotelTypeService : IHotelTypeService
     {
         private readonly ApplicationDbContext _context;
@@ -15,43 +18,62 @@ namespace HotelAPI.Services
             this._context = context;
         }
 
-        /*public async Task<IEnumerable<HotelTypeDTO>> GetAllHotelTypes()
+        public async Task<IEnumerable<HotelTypeDTO>> GetAllHotelTypes()
         {
             var hotelTypes = await _context.HotelTypes
-                .Include(ht => ht.Hotels)
-                .ToListAsync();
+                .Include(ht => ht.Hotels) 
+                .Select(ht => new HotelTypeDTO
+                {
+                    Id = ht.Id,
+                    Name = ht.Name,
+                    Description = ht.Description,
+                    HotelSummaries = ht.Hotels.Select(h => new HotelSummaryDTO
+                    {
+                        Id = h.Id,
+                        Name = h.Name,
+                        Address = h.Address,
+                        City = h.City,
+                        Description = h.Description,
+                        PhoneNumber = h.PhoneNumber,
+                        Email = h.Email,
+                        Rating = h.Rating,
+                        ManagerId = h.ManagerId,
+                        HotelTypeId = h.HotelTypeId
+                    }).ToList()
+                }).ToListAsync();
 
-            if (hotelTypes == null || !hotelTypes.Any())
-            {
-                return Enumerable.Empty<HotelTypeDTO>();
-            }
+            return hotelTypes;
+        }
 
-            var hotelTypeDTOs = hotelTypes.Select(ht => new HotelTypeDTO
-            {
-                Id = ht.Id,
-                Name = ht.Name,
-                Description = ht.Description,
-                HotelIds = ht.Hotels.Select(h => h.Id).ToList()
-            });
-
-            return hotelTypeDTOs;
-
-        }*/
-
-        public async Task<HotelType?> GetHotelTypeById(long id)
+        public async Task<HotelTypeDTO?> GetHotelTypeById(long id)
         {
             var hotelType = await _context.HotelTypes
                 .Include(ht => ht.Hotels)
-                .FirstOrDefaultAsync(ht => ht.Id == id);
+                .Where(ht => ht.Id == id)
+                .Select(ht => new HotelTypeDTO
+                {
+                    Id = ht.Id,
+                    Name = ht.Name,
+                    Description = ht.Description,
+                    HotelSummaries = ht.Hotels.Select(h => new HotelSummaryDTO
+                    {
+                        Id = h.Id,
+                        Name = h.Name,
+                        Address = h.Address,
+                        City = h.City,
+                        Description = h.Description,
+                        PhoneNumber = h.PhoneNumber,
+                        Email = h.Email,
+                        Rating = h.Rating,
+                        ManagerId = h.ManagerId,
+                        HotelTypeId = h.HotelTypeId
+                    }).ToList() 
+                })
+                .FirstOrDefaultAsync();
 
-            if (hotelType == null)
-            {
-                return null;
-            }
-            else
-            {
-                return hotelType;
-            }
+            return hotelType;
         }
+
+
     }
 }

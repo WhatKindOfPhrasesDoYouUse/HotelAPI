@@ -64,15 +64,11 @@ public partial class Hotel
 
     public virtual UserAccount? Manager { get; set; } = null!;
 
-    [JsonIgnore]
     public virtual ICollection<HotelReview> HotelReviews { get; set; } = new List<HotelReview>();
 
-    [JsonIgnore]
     public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
 
-    [JsonIgnore]
     public virtual ICollection<Serv> Services { get; set; } = new List<Serv>();
 
-    [JsonIgnore]
     public virtual ICollection<Travel> Travels { get; set; } = new List<Travel>();
 }
