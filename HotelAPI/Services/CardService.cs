@@ -1,4 +1,5 @@
-﻿using HotelAPI.Contracts;
+﻿using AutoMapper;
+using HotelAPI.Contracts;
 using HotelAPI.Data;
 using HotelAPI.DTO;
 using HotelAPI.Models;
@@ -19,111 +20,74 @@ namespace HotelAPI.Services
         }
 
         /// <summary>
-        /// Асинхронный метод для получения JSON списка всех карт и данных пользователя.
+        /// Асинхронно получает список всех карт с информацией о пользователе.
         /// </summary>
-        /// <returns>Возвращает DTO список</returns>
-        public async Task<IEnumerable<CardDTO>> GetAllCards() 
+        /// <returns>
+        /// Возвращает коллекцию объектов <see cref="CardDTO"/> содержащий информацию о картах и краткую информацию о пользователе карты.
+        /// Если карты нет, то возвращает пустой список.
+        /// </returns>
+        /// <remarks>
+        /// Получание только с роли админа.
+        /// </remarks>
+        public async Task<IEnumerable<CardDTO>> GetAllCards()
         {
             var cards = await _context.Cards
                 .Include(c => c.UserAccount)
-                .ToListAsync();
-
-            var cardsDTO = new List<CardDTO>();
-
-            foreach (var card in cards)
-            {
-                var cardDTO = new CardDTO
+                .Select(c => new CardDTO
                 {
-                    Id = card.Id,
-                    Name = card.Name,
-                    Number = card.Number,
-                    Date = card.Date,
-                    UserAccount = null
-                };
-
-                if (card.UserAccount != null)
-                {
-                    var userAccountDTO = new UserAccountDTO
+                    Id = c.Id,
+                    Name = c.Name,
+                    Number = c.Number,
+                    Date = c.Date,
+                    UserAccountSummary = new UserAccountSummaryDTO
                     {
-                        Id = card.UserAccount.Id,
-                        FirstName = card.UserAccount.FirstName,
-                        LastName = card.UserAccount.LastName,
-                        Surname = card.UserAccount.Surname,
-                        Email = card.UserAccount.Email,
-                        PhoneNumber = card.UserAccount.PhoneNumber,
-                        CardId = card.UserAccount.CardId
-                    };
+                        Id = c.UserAccount.Id,
+                        FirstName = c.UserAccount.FirstName,
+                        LastName = c.UserAccount.LastName,
+                        Surname = c.UserAccount.Surname,
+                        Email = c.UserAccount.Email,
+                        PhoneNumber = c.UserAccount.PhoneNumber
+                    }
+                }).ToListAsync();
 
-                    cardDTO.UserAccount = userAccountDTO;
-                }
-
-                cardsDTO.Add(cardDTO);
-            }
-
-            return cardsDTO;
+            return cards;
         }
 
         /// <summary>
-        /// Асинхронный метод для получения JSON объекта карты и данных пользователя.
+        /// Асинхронно получает информацию о карте по указанному идентификатору.
         /// </summary>
-        /// <returns>Возвращает DTO объект</returns>
+        /// <param name="id">Идентификатор карты.</param>
+        /// <returns>
+        /// Возвращает объект <see cref="CardDTO"/>, содержащий информацию о карте и краткую информацию пользователе карты.
+        /// Если карта с указанным идентификатором не найдена, возвращает <c>null</c>.
+        /// </returns>
+        /// <remarks>
+        /// Метод должен в будующем находить залогинненого пользователя, и возвращать информацию о нем.
+        /// </remarks>
         public async Task<CardDTO?> GetCardById(long id)
         {
             var card = await _context.Cards
                 .Include(c => c.UserAccount)
-                .FirstOrDefaultAsync(c => c.Id == id);
-
-            if (card == null)
-            {
-                return null;
-            }
-
-            var cardDTO = new CardDTO
-            {
-                Id = card.Id,
-                Name = card.Name,
-                Number = card.Number,
-                Date = card.Date,
-                UserAccount = null
-            };
-
-            if (card.UserAccount != null)
-            {
-                var userAccountDTO = new UserAccountDTO
+                .Where(c => c.Id == id)
+                .Select(c => new CardDTO
                 {
-                    Id = card.UserAccount.Id,
-                    FirstName = card.UserAccount.FirstName,
-                    LastName = card.UserAccount.LastName,
-                    Surname = card.UserAccount.Surname,
-                    Email = card.UserAccount.Email,
-                    PhoneNumber = card.UserAccount.PhoneNumber,
-                    CardId = card.UserAccount.CardId
-                };
+                    Id = c.Id,
+                    Name = c.Name,
+                    Number = c.Number,
+                    Date = c.Date,
+                    UserAccountSummary = new UserAccountSummaryDTO
+                    {
+                        Id = c.UserAccount.Id,
+                        FirstName = c.UserAccount.FirstName,
+                        LastName = c.UserAccount.LastName,
+                        Surname = c.UserAccount.Surname,
+                        Email = c.UserAccount.Email,
+                        PhoneNumber = c.UserAccount.PhoneNumber
+                    }
+                })
+                .FirstOrDefaultAsync();
 
-                cardDTO.UserAccount = userAccountDTO;
-            }
-
-            return cardDTO;
-        }
-
-        /// <summary>
-        /// Асинхронный метод для добавления новой карты в базу данных.
-        /// </summary>
-        /// <param name="card">Объект карты, который добавляется в базу данных.</param>
-        /// <returns>Возвращает <c>true</c>, если карта успешно добавлена, или <c>false</c>, если карта с таким номером уже существует.</returns>
-        public async Task<bool> AddCard(Card card)
-        {
-            var existingCard = await _context.Cards.FirstOrDefaultAsync(c => c.Number == card.Number);
-
-            if (existingCard != null)
-            {
-                return false;
-            }
-            
-            await _context.Cards.AddAsync(card);
-            await _context.SaveChangesAsync();
-
-            return true;
+            return card;
         }
 
         /// <summary>
@@ -134,6 +98,9 @@ namespace HotelAPI.Services
         /// <returns>
         /// Возвращает <c>true</c>, если карта успешно удалена, или <c>false</c>, если карта с указанным идентификатором не найдена.
         /// </returns>
+        /// <remarks>
+        /// Метод в будующем должен работать для залогиненого пользователя, что бы он мог отвязать карту.
+        /// </remarks>
         public async Task<bool> DeleteCardById(long id)
         {
             var card = await _context.Cards.SingleOrDefaultAsync(c => c.Id == id);
@@ -158,12 +125,38 @@ namespace HotelAPI.Services
         }
 
         /// <summary>
+        /// Асинхронный метод для добавления новой карты в базу данных.
+        /// </summary>
+        /// <param name="card">Объект карты, который добавляется в базу данных.</param>
+        /// <returns>Возвращает <c>true</c>, если карта успешно добавлена, или <c>false</c>, если карта с таким номером уже существует.</returns>
+        /// <remarks>
+        /// Метод в будующем должен работать для залогиненого пользователя, что бы он мог приявязать карту.
+        /// </remarks>
+        public async Task<bool> AddCard(Card card)
+        {
+            var existingCard = await _context.Cards.FirstOrDefaultAsync(c => c.Number == card.Number);
+
+            if (existingCard != null)
+            {
+                return false;
+            }
+            
+            await _context.Cards.AddAsync(card);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        /// <summary>
         /// Асинхронный метод для обновления данных существующей карты в базе данных.
         /// </summary>
         /// <param name="card">Объект обладающий обновленными полями.</param>
         /// <returns>
         /// Возвращает <c>true</c>, если обновление выполнено успешно, или <c>false</c>, если карта с указанным идентификатором не найдена.
         /// </returns>
+        /// <remarks>
+        /// Метод предназначен только залогиненого пользователя, что бы он мог редактировать свою карту.
+        /// </remarks>
         public async Task<bool> UpdateCard(Card card)
         {
                 var existingCard = await _context.Cards

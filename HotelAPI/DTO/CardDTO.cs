@@ -7,6 +7,6 @@
         public string? Name { get; set; }
         public string? Number { get; set; }
         public string? Date { get; set; }
-        public UserAccountDTO? UserAccount { get; set; }
+        public UserAccountSummaryDTO? UserAccountSummary { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class RoomComfortDTO
     {
-        public long RoomId { get; set; }
-        public long ComfortId { get; set;}
+        public long? RoomId { get; set; }
+        public long? ComfortId { get; set;}
     }
 }
