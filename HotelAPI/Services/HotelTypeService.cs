@@ -73,7 +73,5 @@ namespace HotelAPI.Services
 
             return hotelType;
         }
-
-
     }
 }

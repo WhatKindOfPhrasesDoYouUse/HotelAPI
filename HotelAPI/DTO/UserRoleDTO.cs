@@ -4,6 +4,7 @@
     {
         public long? UserId { get; set; }
         public long? RoleId { get; set; }
-        public IEnumerable<long>? UserAccountsId { get; set; } = new List<long>();
+        public UserAccountSummaryDTO? UserAccountSummary { get; set; }
+        public RoleDTO? Role { get; set; }
     }
 }

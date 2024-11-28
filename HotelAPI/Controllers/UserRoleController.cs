@@ -26,5 +26,19 @@ namespace HotelAPI.Controllers
 
             return Ok(userRole);
         }
+
+        [HttpGet("GetUsersByRoleId/{id}")]
+        public async Task<IActionResult> GetUsersByRoleId(long id)
+        {
+            var userRole = await _userRoleService.GetUserByRoleId(id);
+
+            if (!userRole.Any()) 
+            {
+                return NoContent();
+            }
+
+            return Ok(userRole);
+        }
+
     }
 }

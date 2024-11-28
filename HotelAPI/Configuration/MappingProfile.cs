@@ -18,6 +18,7 @@ namespace HotelAPI.Configuration
             CreateMap<RequestServReview, RequestServReviewDTO>();
             CreateMap<PaymentTravel, PaymentTravelDTO>();
             CreateMap<TravelReview, TravelReviewDTO>();
+            CreateMap<UserRole, UserRoleDTO>();
         }
     }
 }
