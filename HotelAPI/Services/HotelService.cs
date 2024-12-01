@@ -7,19 +7,31 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelAPI.Services
 {
+    /// <summary>
+    /// Сервис для управления отелями, включая операции с созданием, обновлением, удалением и получением данных о гостиницах.
+    /// </summary>
     public class HotelService : IHotelService
     {
+        // TODO: обязательно нужно проверить валидацию модели, а то она кривовата.
+
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        // TODO: обязательно нужно проверить валидацию модели, а то она кривовата.
-
+        // <summary>
+        /// Конструктор сервиса.
+        /// </summary>
+        /// <param name="context">Контекст базы данных.</param>
+        /// <param name="mapper">Интерфейс AutoMapper для преобразования между моделями и DTO.</param>
         public HotelService(ApplicationDbContext context, IMapper mapper)
         {
             this._context = context;
             this._mapper = mapper;
         }
 
+        /// <summary>
+        /// Получить все гостиницы.
+        /// </summary>
+        /// <returns>Список всех гостиниц через DTO.</returns>
         public async Task<IEnumerable<HotelDTO>> GetAllHotels()
         {
             var hotels = await _context.Hotels
@@ -32,7 +44,11 @@ namespace HotelAPI.Services
             return _mapper.Map<IEnumerable<HotelDTO>>(hotels);
         }
 
-
+        // <summary>
+        /// Получить данные о гостинице по ID.
+        /// </summary>
+        /// <param name="id">ID гостиницы.</param>
+        /// <returns>DTO гостиницы, или null, если гостиница не найдена.</returns>
         public async Task<HotelDTO?> GetHotelById(long id)
         {
             var hotel = await _context.Hotels
@@ -45,7 +61,11 @@ namespace HotelAPI.Services
             return _mapper.Map<HotelDTO>(hotel);
         }
 
-
+        /// <summary>
+        /// Добавить новую гостиницу.
+        /// </summary>
+        /// <param name="hotel">Объект гостиницы для добавления.</param>
+        /// <returns>True, если гостиница была успешно добавлена; False, если гостиница с таким email или номером телефона уже существует.</returns>
         public async Task<bool> AddHotel(Hotel hotel)
         {
             var findHotel = await _context.Hotels
@@ -62,6 +82,12 @@ namespace HotelAPI.Services
             return true;
         }
 
+        /// <summary>
+        /// Обновить данные гостиницы по ID.
+        /// </summary>
+        /// <param name="id">ID гостиницы, которую нужно обновить.</param>
+        /// <param name="hotel">Обновленные данные гостиницы.</param>
+        /// <returns>True, если гостиница была успешно обновлена; False, если гостиница с данным ID не найдена.</returns>
         public async Task<bool> UpdateHotel(long id, Hotel hotel)
         {
             var existingHotel = await _context.Hotels.FirstOrDefaultAsync(h => h.Id == id);
@@ -87,6 +113,11 @@ namespace HotelAPI.Services
             return true;
         }
 
+        /// <summary>
+        /// Удалить гостиницу по ID.
+        /// </summary>
+        /// <param name="id">ID гостиницы, которую нужно удалить.</param>
+        /// <returns>True, если гостиница была успешно удалена; False, если гостиница с данным ID не найдена.</returns>
         public async Task<bool> DeleteById(long id)
         {
             var hotel = await _context.Hotels.FirstOrDefaultAsync(h => h.Id == id);
