@@ -11,13 +11,24 @@ namespace HotelAPI.Services
     /// </summary>
     public class HotelTypeService : IHotelTypeService
     {
+
+        // README: Оставлю пока справочник статическим, т.к. типы отеля появляются очень редко, и большой нужды в динамике пока нет.
+
         private readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Конструктор для создания экземпляра сервиса.
+        /// </summary>
+        /// <param name="context">Контекст базы данных для работы с данными приложения.</param>
         public HotelTypeService(ApplicationDbContext context)
         {
             this._context = context;
         }
 
+        /// <summary>
+        /// Конструктор для создания экземпляра сервиса.
+        /// </summary>
+        /// <param name="context">Контекст базы данных для работы с данными приложения.</param>
         public async Task<IEnumerable<HotelTypeDTO>> GetAllHotelTypes()
         {
             var hotelTypes = await _context.HotelTypes
@@ -45,6 +56,10 @@ namespace HotelAPI.Services
             return hotelTypes;
         }
 
+        /// <summary>
+        /// Асинхронный метод для получения всех типов отелей с краткой информацией об отелях, связанных с каждым типом.
+        /// </summary>
+        /// <returns>Список объектов HotelTypeDTO, содержащих информацию о типах отелей и связанных с ними отелях.</returns>
         public async Task<HotelTypeDTO?> GetHotelTypeById(long id)
         {
             var hotelType = await _context.HotelTypes
