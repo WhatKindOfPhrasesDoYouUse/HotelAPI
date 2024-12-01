@@ -118,6 +118,8 @@ namespace HotelAPI.Controllers
             return Ok($"Карта с id: {id} была успешно удалена");
         }
 
+        // TODO: Переделать для обновления карты по 2 параметрам id, Card obj
+
         /// <summary>
         /// Обновляет информацию о карте.
         /// </summary>

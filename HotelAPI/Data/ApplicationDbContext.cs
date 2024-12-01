@@ -128,7 +128,7 @@ namespace HotelAPI.Data
                 .HasOne(h => h.Hotel)
                 .WithMany(r => r.Rooms)
                 .HasForeignKey(k => k.HotelId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Конфигурация Bookings
 
@@ -142,7 +142,7 @@ namespace HotelAPI.Data
                 .HasOne(r => r.Room)
                 .WithMany(b => b.Bookings)
                 .HasForeignKey(k => k.RoomId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Конфигурация PaymentRoom
 

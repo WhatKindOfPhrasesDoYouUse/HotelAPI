@@ -296,3 +296,17 @@ ALTER TABLE request_service DROP CONSTRAINT request_service_service_id_fkey;
 ALTER TABLE request_service
 ADD CONSTRAINT request_service_service_id_fkey FOREIGN KEY (service_id) REFERENCES service(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
+-- Поменял на ON DELETE CASCADE, что бы при удалении отеля данные о нем затирались
+
+ALTER TABLE core.room DROP CONSTRAINT room_hotel_id_fkey;
+
+ALTER TABLE core.room
+ADD CONSTRAINT room_hotel_id_fkey FOREIGN KEY (hotel_id) 
+REFERENCES core.hotel(id) ON DELETE CASCADE;
+
+ALTER TABLE core.booking
+DROP CONSTRAINT booking_room_id_fkey;
+
+ALTER TABLE core.booking
+ADD CONSTRAINT booking_room_id_fkey
+FOREIGN KEY (room_id) REFERENCES core.room(id) ON DELETE CASCADE;

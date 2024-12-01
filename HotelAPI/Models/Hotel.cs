@@ -64,11 +64,11 @@ public partial class Hotel
 
     public virtual UserAccount? Manager { get; set; } = null!;
 
-    public virtual ICollection<HotelReview> HotelReviews { get; set; } = new List<HotelReview>();
+    public virtual ICollection<HotelReview>? HotelReviews { get; set; } = new List<HotelReview>();
 
-    public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
+    public virtual ICollection<Room>? Rooms { get; set; } = new List<Room>();
 
-    public virtual ICollection<Serv> Services { get; set; } = new List<Serv>();
+    public virtual ICollection<Serv>? Services { get; set; } = new List<Serv>();
 
-    public virtual ICollection<Travel> Travels { get; set; } = new List<Travel>();
+    public virtual ICollection<Travel>? Travels { get; set; } = new List<Travel>();
 }
