@@ -1,5 +1,4 @@
 ﻿using HotelAPI.DTO;
-using HotelAPI.Models;
 
 namespace HotelAPI.Contracts
 {

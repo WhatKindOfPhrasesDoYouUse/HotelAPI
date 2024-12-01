@@ -7,11 +7,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelAPI.Services
 {
+    /// <summary>
+    /// Сервис для работы с ролями пользователей. Позволяет управлять связями между пользователями и их ролями.
+    /// </summary>
     public class UserRoleService : IUserRoleService
     {
+
+        // TODO: Сделать чеккер для метода удаления, что бы если удаляем роль у пользователя у которого нет роли клиента, роль клиента добавлялась бы 1 раз.
+
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Конструктор сервиса UserRoleService.
+        /// </summary>
+        /// <param name="context">Контекст базы данных, используемый для взаимодействия с таблицами пользователей и ролей.</param>
+        /// <param name="mapper">Интерфейс для маппинга данных из сущностей в DTO объекты.</param>
         public UserRoleService(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
@@ -86,7 +97,12 @@ namespace HotelAPI.Services
             return _mapper.Map<IEnumerable<UserRoleDTO>>(result);
         }
 
-        
+        // <summary>
+        /// Асинхронный метод для добавления роли пользователю.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя, которому будет назначена роль.</param>
+        /// <param name="roleId">Идентификатор роли, которую нужно назначить пользователю.</param>
+        /// <returns>Возвращает <c>true</c>, если роль успешно добавлена, иначе <c>false</c>.</returns>
         public async Task<bool> AddRoleToUser(long userId, long roleId)
         {
             var user = await _context.UserAccounts.FirstOrDefaultAsync(u => u.Id == userId);
@@ -120,7 +136,12 @@ namespace HotelAPI.Services
             return true;
         }
 
-        // TODO: сделать чеккер что бы если удаляем роль у пользователя у которого нет роли клиента, роль клиента добавлялась бы 1 раз
+        /// <summary>
+        /// Асинхронный метод для удаления роли у пользователя.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя, у которого необходимо удалить роль.</param>
+        /// <param name="roleId">Идентификатор роли, которую нужно удалить у пользователя.</param>
+        /// <returns>Возвращает <c>true</c>, если роль успешно удалена, иначе <c>false</c>.</returns>
         public async Task<bool> RemoveRoleFromUser(long userId, long roleId) 
         {
             var userRole = await _context.UsersRoles.FirstOrDefaultAsync(ur => ur.UserId == userId && ur.RoleId == roleId);
