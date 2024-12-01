@@ -40,5 +40,32 @@ namespace HotelAPI.Controllers
             return Ok(userRole);
         }
 
+        // Вроде пашет
+        [HttpPost("AddRoleToUser/{userId}/{roleId}")]
+        public async Task<IActionResult> AddRoleToUser(long userId, long roleId)
+        {
+            var result = await _userRoleService.AddRoleToUser(userId, roleId);
+
+            if (!result)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpDelete("DeleteRoleFromUser/{userId}/{roleId}")]
+        public async Task<IActionResult> DeleteRoleFromUser(long userId, long roleId)
+        {
+            var result = await _userRoleService.RemoveRoleFromUser(userId, roleId);
+
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            // Если роль была удалена лучше вернуть 204 статус
+            return NoContent();
+        }
     }
 }

@@ -53,7 +53,6 @@ public partial class UserAccount
     public string Passport { get; set; } = null!;
 
     [Column(name: "card_id")]
-    [Required]
     public long? CardId { get; set; }
     
     [JsonIgnore]
