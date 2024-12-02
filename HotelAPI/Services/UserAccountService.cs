@@ -10,6 +10,7 @@ namespace HotelAPI.Services
     // TODO: 1. Вероятно стоит решить проблему странного хранения ролей и пользователей в JSON, но это не критично.
     // TODO: 2. Перенести Card и Role сервисы на маппер.
     // TODO: 3. Удаление, добавление и редактирование стоит сделать когда уже будет авторизация и регистрация.
+    // TODO: 4. Переделать чуток JSON, а то получается какое - то очко, очень много дублирований данных.
     public class UserAccountService : IUserAccountService
     {
         private readonly ApplicationDbContext _context;

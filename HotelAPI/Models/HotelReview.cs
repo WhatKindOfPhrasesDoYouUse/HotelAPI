@@ -36,7 +36,7 @@ public partial class HotelReview
     [Required]
     public long UserAccountId { get; set; }
 
-    public virtual Hotel Hotel { get; set; } = null!;
+    public virtual Hotel? Hotel { get; set; } = null!;
 
-    public virtual UserAccount UserAccount { get; set; } = null!;
+    public virtual UserAccount? UserAccount { get; set; } = null!;
 }
