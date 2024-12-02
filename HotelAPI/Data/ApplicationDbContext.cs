@@ -121,10 +121,6 @@ namespace HotelAPI.Data
             // Конфигурация Room
 
             modelBuilder.Entity<Room>()
-                .HasIndex(r => r.RoomNumber)
-                .IsUnique();
-
-            modelBuilder.Entity<Room>()
                 .HasOne(h => h.Hotel)
                 .WithMany(r => r.Rooms)
                 .HasForeignKey(k => k.HotelId)

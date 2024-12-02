@@ -310,3 +310,6 @@ DROP CONSTRAINT booking_room_id_fkey;
 ALTER TABLE core.booking
 ADD CONSTRAINT booking_room_id_fkey
 FOREIGN KEY (room_id) REFERENCES core.room(id) ON DELETE CASCADE;
+
+ALTER TABLE core.room
+DROP CONSTRAINT IF EXISTS room_room_number_key;

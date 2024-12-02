@@ -16,6 +16,12 @@ namespace HotelAPI.Configuration
                 .ForMember(dest => dest.Services, opt => opt.MapFrom(src => src.Services))
                 .ForMember(dest => dest.Travels, opt => opt.MapFrom(src => src.Travels));
 
+            CreateMap<Room, RoomDTO>()
+                .ForMember(dest => dest.Bookings, opt => opt.MapFrom(src => src.Bookings))
+                .ForMember(dest => dest.Hotel, opt => opt.MapFrom(src => src.Hotel))
+                .ForMember(dest => dest.Comforts, opt => opt.MapFrom(src => src.Comforts));
+
+            CreateMap<Hotel, HotelSummaryDTO>();
             CreateMap<UserAccount, UserAccountDTO>();
             CreateMap<Card, CardDTO>();
             CreateMap<UserRole, UserRoleDTO>();

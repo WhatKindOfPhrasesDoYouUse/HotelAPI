@@ -39,11 +39,11 @@ public partial class Room
     [Required]
     public long HotelId { get; set; }
 
-    public virtual Hotel Hotel { get; set; } = null!;
+    public virtual Hotel? Hotel { get; set; } = null!;
 
     [JsonIgnore]
-    public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+    public virtual ICollection<Booking>? Bookings { get; set; } = new List<Booking>();
 
     [JsonIgnore]
-    public virtual ICollection<RoomComfort> Comforts { get; set; } = new List<RoomComfort>();
+    public virtual ICollection<RoomComfort>? Comforts { get; set; } = new List<RoomComfort>();
 }
