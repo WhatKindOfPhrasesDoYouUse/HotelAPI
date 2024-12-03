@@ -41,6 +41,7 @@ namespace HotelAPI.Services
             return _mapper.Map<IEnumerable<HotelReviewDTO>>(hotelReviews);
         }
 
+
         /// <summary>
         /// Получает информацию о комнате по ее идентификатору.
         /// </summary>
@@ -54,6 +55,37 @@ namespace HotelAPI.Services
                 .FirstOrDefaultAsync(hr => hr.Id == id);
 
             return _mapper.Map<HotelReviewDTO>(hotelReview);
+        }
+
+        public async Task<IEnumerable<HotelReviewDTO>> GetHotelReviewsByHotelId(long hotelId)
+        {
+            var reviews = await _context.HotelReviews
+                .Where(review => review.HotelId == hotelId)
+                .Include(review => review.Hotel)
+                .Include(review => review.UserAccount)
+                .Select(review => new HotelReviewDTO
+                {
+                    Id = review.Id,
+                    Comment = review.Comment,
+                    PublishDate = review.PublishDate,
+                    Rating = review.Rating,
+                    HotelId = review.HotelId,
+                    UserAccountId = review.UserAccountId,
+                    Hotel = new HotelSummaryDTO
+                    {
+                        Id = review.Hotel.Id,
+                        Name = review.Hotel.Name
+                    },
+                    UserAccount = new UserAccountSummaryDTO
+                    {
+                        Id = review.UserAccount.Id,
+                        FirstName = review.UserAccount.FirstName,
+                        LastName = review.UserAccount.LastName
+                    }
+                })
+                .ToListAsync();
+
+            return reviews;
         }
 
         /// <summary>

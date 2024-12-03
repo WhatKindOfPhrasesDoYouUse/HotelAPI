@@ -47,6 +47,17 @@ public class Program
                 options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
             });
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowReactApp",
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000")
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+        });
+
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
 
@@ -56,6 +67,8 @@ public class Program
         builder.Services.AddAutoMapper(typeof(Program));
 
         var app = builder.Build();
+
+        app.UseCors("AllowReactApp");
 
         if (app.Environment.IsDevelopment())
         {

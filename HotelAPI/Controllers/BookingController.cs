@@ -27,5 +27,31 @@ namespace HotelAPI.Controllers
 
             return Ok(bookings);
         }
+
+        [HttpGet("GetBookingById/{id}")]
+        public async Task<IActionResult> GetBookingById(long id)
+        {
+            var booking = await _bookingService.GetBookingById(id);
+
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(booking);
+        }
+
+        [HttpDelete("DeleteBookingById/{id}")]
+        public async Task<IActionResult> DeleteBookingById(long id)
+        {
+            var result = await _bookingService.DeleteBookingById(id);
+
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
     }
 }

@@ -43,6 +43,18 @@ namespace HotelAPI.Controllers
             return Ok(hotelReview);
         }
 
+        [HttpGet("GetHotelReviewByHotelId/{id}")]
+        public async Task<IActionResult> GetHotelReviewByHotelId(long id)
+        {
+            var reviews = await _hotelReviewService.GetHotelReviewsByHotelId(id);
+            if (reviews == null || !reviews.Any())
+            {
+                return NotFound(new { message = "Отзывы не найдены для указанного отеля." });
+            }
+
+            return Ok(reviews);
+        }
+
         [HttpPost("AddRoom")]
         public async Task<IActionResult> AddHotelReview(HotelReview hotelReview)
         {

@@ -34,9 +34,9 @@ public partial class Booking
     public long RoomId { get; set; }
 
     [JsonIgnore]
-    public virtual ICollection<PaymentRoom> PaymentRooms { get; set; } = new List<PaymentRoom>();
+    public virtual ICollection<PaymentRoom>? PaymentRooms { get; set; } = new List<PaymentRoom>();
 
-    public virtual Room Room { get; set; } = null!;
+    public virtual Room? Room { get; set; } = null!;
 
-    public virtual UserAccount UserAccount { get; set; } = null!;
+    public virtual UserAccount? UserAccount { get; set; } = null!;
 }

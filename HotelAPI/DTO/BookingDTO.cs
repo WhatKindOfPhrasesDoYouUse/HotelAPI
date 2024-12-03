@@ -1,4 +1,6 @@
-﻿namespace HotelAPI.DTO
+﻿using HotelAPI.Models;
+
+namespace HotelAPI.DTO
 {
     public class BookingDTO
     {
@@ -8,5 +10,8 @@
         public decimal? ActualPrice { get; set; }
         public long? UserAccountId { get; set; }
         public long? RoomId { get; set; }
+        public virtual ICollection<PaymentRoomDTO>? PaymentRooms { get; set; } = new List<PaymentRoomDTO>();
+        public virtual Room? Room { get; set; } = null!;
+        public virtual UserAccountSummaryDTO? UserAccount { get; set; } = null!;
     }
 }
