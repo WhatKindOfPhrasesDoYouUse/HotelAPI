@@ -98,5 +98,12 @@ namespace HotelAPI.Controllers
             var hotels = await _hotelService.GetFilteredHotels(city, rating, minAvailableRooms);
             return Ok(hotels);
         }
+
+        [HttpGet("SortedHotelsByRating")]
+        public async Task<IActionResult> GetSortedHotelsByRating([FromQuery] bool? sortByRatingDescending)
+        {
+            var hotels = await _hotelService.SortHotelsByRating(sortByRatingDescending);
+            return Ok(hotels);
+        }
     }
 }

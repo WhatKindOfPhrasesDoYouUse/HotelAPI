@@ -174,5 +174,25 @@ namespace HotelAPI.Services
             return hotelDTOs;
         }
 
+        public async Task<IEnumerable<HotelDTO>> SortHotelsByRating(bool? sortByRatingDescending)
+        {
+            var hotels = await _context.Hotels
+                .Include(h => h.HotelReviews)
+                .Include(h => h.Rooms)
+                .Include(h => h.Services)
+                .Include(h => h.Travels)
+                .ToListAsync();
+
+            if (sortByRatingDescending.HasValue && sortByRatingDescending.Value)
+            {
+                var sortedHotels = hotels.OrderByDescending(h => h.Rating);
+                return _mapper.Map<IEnumerable<HotelDTO>>(sortedHotels);
+            }
+            else
+            {
+                var sortedHotels = hotels.OrderBy(h => h.Rating);
+                return _mapper.Map<IEnumerable<HotelDTO>>(sortedHotels);
+            }
+        }
     }
 }
