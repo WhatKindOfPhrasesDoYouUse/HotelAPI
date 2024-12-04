@@ -90,5 +90,19 @@ namespace HotelAPI.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("GetAvailableRooms/{hotelId}")]
+        public async Task<IActionResult> GetAvailableRooms(long hotelId)
+        {
+            var availableRooms = await _roomService.GetAvailableRooms(hotelId);
+            return Ok(availableRooms);
+        }
+
+        [HttpGet("GetAvailableRoomsCount/{hotelId}")]
+        public async Task<ActionResult<int>> GetRoomCount(long hotelId)
+        {
+            var roomCount = await _roomService.GetRoomCount(hotelId);
+            return Ok(roomCount);
+        }
     }
 }

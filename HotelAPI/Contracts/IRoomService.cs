@@ -10,5 +10,7 @@ namespace HotelAPI.Contracts
         Task<bool> DeleteRoomById(long id);
         Task<bool> AddRoom(Room room);
         Task<bool> UpdateRoom(long id, Room room);
+        Task<IEnumerable<RoomSummaryDTO>> GetAvailableRooms(long hotelId);
+        Task<int> GetRoomCount(long hotelId);
     }
 }

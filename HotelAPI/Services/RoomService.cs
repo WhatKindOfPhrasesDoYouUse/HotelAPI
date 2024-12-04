@@ -132,5 +132,25 @@ namespace HotelAPI.Services
 
             return true;
         }
+
+        public async Task<IEnumerable<RoomSummaryDTO>> GetAvailableRooms(long hotelId)
+        {
+            var rooms = await _context.Rooms
+                .Include(r => r.Bookings)
+                .Where(r => r.HotelId == hotelId && !r.Bookings.Any())
+                .ToListAsync();
+
+            return _mapper.Map<IEnumerable<RoomSummaryDTO>>(rooms);
+        }
+
+        public async Task<int> GetRoomCount(long hotelId)
+        {
+            var availableRoomsCount = await _context.Rooms
+                .Where(r => r.HotelId == hotelId)
+                .Where(r => !r.Bookings.Any()) 
+                .CountAsync(); 
+
+            return availableRoomsCount;
+        }
     }
 }
