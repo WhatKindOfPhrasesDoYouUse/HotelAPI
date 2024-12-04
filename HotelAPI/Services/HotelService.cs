@@ -15,6 +15,7 @@ namespace HotelAPI.Services
         // TODO: обязательно нужно проверить валидацию модели, а то она кривовата.
 
         private readonly ApplicationDbContext _context;
+        private readonly IRoomService _roomService;
         private readonly IMapper _mapper;
 
         // <summary>
@@ -22,10 +23,11 @@ namespace HotelAPI.Services
         /// </summary>
         /// <param name="context">Контекст базы данных.</param>
         /// <param name="mapper">Интерфейс AutoMapper для преобразования между моделями и DTO.</param>
-        public HotelService(ApplicationDbContext context, IMapper mapper)
+        public HotelService(ApplicationDbContext context, IMapper mapper, IRoomService roomService)
         {
             this._context = context;
             this._mapper = mapper;
+            this._roomService = roomService;
         }
 
         /// <summary>
@@ -139,5 +141,38 @@ namespace HotelAPI.Services
 
             return true;
         }
+
+        // TODO: Переделать рейтинг под double
+
+        public async Task<IEnumerable<HotelDTO>> GetFilteredHotels(string? city, int? minRating, int? minAvailableRooms)
+        {
+            var query = _context.Hotels
+                .Include(h => h.HotelReviews)
+                .Include(h => h.Rooms)
+                .Include(h => h.Travels)
+                .Include(h => h.Services)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(city))
+            {
+                query = query.Where(h => h.City.Contains(city));
+            }
+
+            if (minRating.HasValue)
+            {
+                query = query.Where(h => h.Rating >= minRating.Value);
+            }
+
+            var hotels = await query.ToListAsync();
+
+            var filteredHotels = hotels
+                .Where(h => !minAvailableRooms.HasValue || _roomService.GetRoomCount(h.Id).Result >= minAvailableRooms)
+                .ToList();
+
+            var hotelDTOs = _mapper.Map<IEnumerable<HotelDTO>>(filteredHotels);
+
+            return hotelDTOs;
+        }
+
     }
 }

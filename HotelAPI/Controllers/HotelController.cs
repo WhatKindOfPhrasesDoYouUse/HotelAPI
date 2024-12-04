@@ -90,6 +90,13 @@ namespace HotelAPI.Controllers
             }
 
             return Ok(result);
-        } 
+        }
+
+        [HttpGet("FilteredHotels")]
+        public async Task<IActionResult> GetFilteredHotels([FromQuery] string? city, [FromQuery] int? rating, [FromQuery] int? minAvailableRooms)
+        {
+            var hotels = await _hotelService.GetFilteredHotels(city, rating, minAvailableRooms);
+            return Ok(hotels);
+        }
     }
 }
