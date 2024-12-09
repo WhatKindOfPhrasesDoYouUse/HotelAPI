@@ -111,5 +111,12 @@ namespace HotelAPI.Controllers
             var rooms = await _roomService.GetFilteredRooms(hotelId, capacity, minPrice, maxPrice, roomType);
             return Ok(rooms);
         }
+
+        [HttpGet("SortedHotelsByPrice")]
+        public async Task<IActionResult> GetSortedRoomeByPrice([FromQuery] long hotelId, [FromQuery] bool? sortByPriceDescending)
+        {
+            var rooms = await _roomService.SortRoomsByPrice(hotelId, sortByPriceDescending);
+            return Ok(rooms);
+        }
     }
 }

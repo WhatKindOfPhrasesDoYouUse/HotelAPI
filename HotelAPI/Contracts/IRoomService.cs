@@ -13,5 +13,6 @@ namespace HotelAPI.Contracts
         Task<IEnumerable<RoomSummaryDTO>> GetAvailableRooms(long hotelId);
         Task<int> GetRoomCount(long hotelId);
         Task<IEnumerable<RoomDTO>> GetFilteredRooms(long hotelId, int? capacity, decimal? minPrice, decimal? maxPrice, string? roomType);
+        Task<IEnumerable<RoomDTO>> SortRoomsByPrice(long hotelId, bool? sortByPriceDescending);
     }
 }

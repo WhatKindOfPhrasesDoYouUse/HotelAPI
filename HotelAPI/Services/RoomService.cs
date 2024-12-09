@@ -184,5 +184,26 @@ namespace HotelAPI.Services
 
             return _mapper.Map<IEnumerable<RoomDTO>>(query);
         }
+
+        public async Task<IEnumerable<RoomDTO>> SortRoomsByPrice(long hotelId, bool? sortByPriceDescending)
+        {
+            var rooms = await _context.Rooms
+                .Include(r => r.Bookings)
+                .Include(r => r.Comforts)
+                .Include(r => r.Hotel)
+                .Where(r => r.HotelId == hotelId)
+                .ToListAsync();
+
+            if (sortByPriceDescending.HasValue && sortByPriceDescending.Value)
+            {
+                var sortedRooms = rooms.OrderByDescending(r => r.Price);
+                return _mapper.Map<IEnumerable<RoomDTO>>(sortedRooms);
+            }
+            else
+            {
+                var sortedRooms = rooms.OrderBy(r => r.Price);
+                return _mapper.Map<IEnumerable<RoomDTO>>(sortedRooms);
+            }
+        }
     }
 }
