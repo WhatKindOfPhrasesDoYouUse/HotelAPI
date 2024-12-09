@@ -152,5 +152,37 @@ namespace HotelAPI.Services
 
             return availableRoomsCount;
         }
+
+        public async Task<IEnumerable<RoomDTO>> GetFilteredRooms(long hotelId, int? capacity, decimal? minPrice, decimal? maxPrice, string? roomType)
+        {
+            var query = _context.Rooms
+                .Include(r => r.Bookings)
+                .Include(r => r.Comforts)
+                .Include(r => r.Hotel)
+                .Where(r => r.HotelId == hotelId)
+                .AsQueryable();
+
+            if (minPrice.HasValue)
+            {
+                query = query.Where(r => r.Price >= minPrice.Value);
+            }
+
+            if (minPrice.HasValue && maxPrice.HasValue)
+            {
+                query = query.Where(r => r.Price >= minPrice.Value && r.Price <= maxPrice.Value);
+            }
+
+            if (capacity.HasValue)
+            {
+                query = query.Where(r => r.Capacity >= capacity.Value);
+            }
+
+            if (!string.IsNullOrWhiteSpace(roomType))
+            {
+                query = query.Where(r => r.RoomType.Contains(roomType));
+            }
+
+            return _mapper.Map<IEnumerable<RoomDTO>>(query);
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace HotelAPI.Contracts
         Task<bool> UpdateRoom(long id, Room room);
         Task<IEnumerable<RoomSummaryDTO>> GetAvailableRooms(long hotelId);
         Task<int> GetRoomCount(long hotelId);
+        Task<IEnumerable<RoomDTO>> GetFilteredRooms(long hotelId, int? capacity, decimal? minPrice, decimal? maxPrice, string? roomType);
     }
 }

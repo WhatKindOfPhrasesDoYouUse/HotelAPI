@@ -104,5 +104,12 @@ namespace HotelAPI.Controllers
             var roomCount = await _roomService.GetRoomCount(hotelId);
             return Ok(roomCount);
         }
+
+        [HttpGet("FilteredRooms")]
+        public async Task<IActionResult> GetFilteredRooms([FromQuery] long hotelId, [FromQuery] int? capacity, [FromQuery] decimal? minPrice, [FromQuery] decimal? maxPrice, [FromQuery] string? roomType)
+        {
+            var rooms = await _roomService.GetFilteredRooms(hotelId, capacity, minPrice, maxPrice, roomType);
+            return Ok(rooms);
+        }
     }
 }
