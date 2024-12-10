@@ -1,12 +1,14 @@
 ﻿using HotelAPI.Contracts;
 using HotelAPI.Models;
 using HotelAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class RoomController : Controller
     {
         private readonly IRoomService _roomService;

@@ -1,9 +1,13 @@
 using HotelAPI.Contracts;
 using HotelAPI.Data;
 using HotelAPI.Services;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
+using System.Text;
+using HotelAPI.Models;
+using Microsoft.AspNetCore.Identity;
 
 public class Program
 {
@@ -33,6 +37,8 @@ public class Program
         builder.Services.AddScoped<IPaymentTravelService, PaymentTravelService>();
         builder.Services.AddScoped<ITravelReviewService, TravelReviewService>();
         builder.Services.AddScoped<IRoomComfortService, RoomComfortService>();
+        builder.Services.AddScoped<IAuthService, AuthService>();
+        builder.Services.AddScoped<PasswordHasher<UserAccount>>();
 
         // Глобавльная обработка циклических ссылок в JSON сериализаторе
         builder.Services.AddControllers()
@@ -46,6 +52,49 @@ public class Program
             {
                 options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
             });
+
+
+
+        /*builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                var jwtSettings = builder.Configuration;
+
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = jwtSettings["Jwt:Issuer"],
+                    ValidAudience = jwtSettings["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Jwt:Key"]))
+                };
+            });*/
+
+        var jwtSettings = builder.Configuration.GetSection("Jwt");
+        //var key = Encoding.UTF8.GetBytes("G0gf6FgC29B8jm1q9toP0qJ8FHp4WbYvf6DSnkABuWg=");
+        var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
+
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = jwtSettings["Issuer"],
+                ValidAudience = jwtSettings["Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(key)
+            };
+        });
 
         builder.Services.AddCors(options =>
         {
@@ -84,6 +133,8 @@ public class Program
                 options.RoutePrefix = string.Empty;
             });
         }
+
+        app.UseAuthentication();
 
         app.UseAuthorization();
 

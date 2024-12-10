@@ -313,3 +313,11 @@ FOREIGN KEY (room_id) REFERENCES core.room(id) ON DELETE CASCADE;
 
 ALTER TABLE core.room
 DROP CONSTRAINT IF EXISTS room_room_number_key;
+
+ALTER TABLE user_account
+ALTER COLUMN password TYPE VARCHAR(300);
+
+-- добавить ограничение обратно
+update user_account
+set password = 'AQAAAAIAAYagAAAAEOGo9nsMgDeV1MHxFWG9BnH/FaECj6fDQckM0smoCXRQwKyJw8d2yOgOi6icxHN7aw=='
+where first_name = 'Alice';

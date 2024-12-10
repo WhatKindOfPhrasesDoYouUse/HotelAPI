@@ -88,6 +88,28 @@ namespace HotelAPI.Services
             return _mapper.Map<UserAccountDTO>(userAccount);
         }
 
+        public async Task<UserAccount?> GetUserModelByEmail(string email)
+        {
+            var userAccount = await _context.UserAccounts
+                .Include(u => u.Card)
+                .Include(u => u.Roles)
+                .Include(u => u.Bookings)
+                .Include(u => u.HotelReviews)
+                .Include(u => u.Hotels)
+                .Include(u => u.RequestServices)
+                .Include(u => u.RequestServiceReviews)
+                .Include(u => u.PaymentTravels)
+                .Include(u => u.TravelReviews)
+                .FirstOrDefaultAsync(ua => ua.Email == email);
+
+            if (userAccount == null)
+            {
+                return null;
+            }
+
+            return userAccount;
+        }
+
         public async Task<UserAccountDTO?> GetUserByFirstNameAndLastName(string firstName, string lastName)
         {
             var userAccount = await _context.UserAccounts
