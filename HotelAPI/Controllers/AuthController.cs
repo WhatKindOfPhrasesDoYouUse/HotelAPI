@@ -1,5 +1,6 @@
 ﻿using HotelAPI.Contracts;
 using HotelAPI.DTO;
+using HotelAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelAPI.Controllers
@@ -19,6 +20,19 @@ namespace HotelAPI.Controllers
         public async Task<IActionResult> Login(AuthUserDTO loginDto)
         {
             var result = await _authService.Login(loginDto);
+            return Ok(result);
+        }
+
+        [HttpPost("Registration")]
+        public async Task<IActionResult> Registration(UserAccount user)
+        {
+            var result = await _authService.Registration(user);
+            
+            if (!result)
+            {
+                return BadRequest();
+            }
+
             return Ok(result);
         }
     }

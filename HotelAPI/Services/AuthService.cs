@@ -24,7 +24,6 @@ namespace HotelAPI.Services
             this._passwordHasher = passwordHasher;
         }
 
-        // TODO: добавить роли в аутентификацию
         private string GenerateJwtToken(UserAccount user)
         {
             var roles = _context.UsersRoles
@@ -76,6 +75,36 @@ namespace HotelAPI.Services
             }
 
             return GenerateJwtToken(user);
+        }
+
+        public async Task<bool> Registration(UserAccount user)
+        {
+            if (user == null)
+            {
+                return false;
+            }
+
+            var existingUser = await _context.UserAccounts.FirstOrDefaultAsync(u => u.Email == user.Email);
+            if (existingUser != null)
+            {
+                return false;
+            }
+
+            user.Password = HashPassword(user, user.Password);
+
+            _context.UserAccounts.Add(user);
+            await _context.SaveChangesAsync();
+
+            UserRole userRole = new UserRole
+            {
+                UserId = user.Id,
+                RoleId = 2
+            };
+
+            _context.UsersRoles.Add(userRole);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

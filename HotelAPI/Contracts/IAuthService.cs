@@ -6,5 +6,6 @@ namespace HotelAPI.Contracts
     public interface IAuthService
     {
         Task<string> Login(AuthUserDTO loginDto);
+        Task<bool> Registration(UserAccount user);
     }
 }
