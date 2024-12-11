@@ -13,26 +13,32 @@ namespace HotelAPI.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly IUserAccountService _userAccountService;
         private readonly IConfiguration _configuration;
         private readonly ApplicationDbContext _context;
         private readonly PasswordHasher<UserAccount> _passwordHasher;
 
-        public AuthService(IUserAccountService userAccountService, IConfiguration configuration, ApplicationDbContext context, PasswordHasher<UserAccount> passwordHasher)
+        public AuthService(IConfiguration configuration, ApplicationDbContext context, PasswordHasher<UserAccount> passwordHasher)
         {
-            this._userAccountService = userAccountService;
             this._configuration = configuration;
             this._context = context;
             this._passwordHasher = passwordHasher;
         }
 
+        // TODO: добавить роли в аутентификацию
         private string GenerateJwtToken(UserAccount user)
         {
-            var claims = new[]
+            var roles = _context.UsersRoles
+                .Where(ur => ur.UserId == user.Id)
+                .Select(r => r.Role.Name)
+                .ToList();
+
+            var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
+
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

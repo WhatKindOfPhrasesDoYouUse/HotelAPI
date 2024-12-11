@@ -8,7 +8,6 @@ namespace HotelAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class RoomController : Controller
     {
         private readonly IRoomService _roomService;
@@ -19,6 +18,7 @@ namespace HotelAPI.Controllers
         }
 
         [HttpGet("GetRooms")]
+        [Authorize(Roles = "client")]
         public async Task<IActionResult> GetRooms()
         {
             var rooms = await _roomService.GetAllRooms();
