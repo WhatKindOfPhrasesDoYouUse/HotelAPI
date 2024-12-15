@@ -1,5 +1,7 @@
 ﻿using HotelAPI.Contracts;
+using HotelAPI.DTO;
 using HotelAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 namespace HotelAPI.Controllers
@@ -66,6 +68,28 @@ namespace HotelAPI.Controllers
             else
             {
                 return NotFound($"Пользователь с именем {firstName} {lastName} не найден.");
+            }
+        }
+
+        [HttpPut("UpdateUser/{id}")]
+        [Authorize]
+
+        public async Task<IActionResult> UpdateUser(long id, UserAccountSummaryDTO user)
+        {
+            if (id <= 0)
+            {
+                return BadRequest();
+            }
+
+            bool result = await _userAccountService.UpdateUserAccount(id, user);
+
+            if (!result)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return Ok(result);
             }
         }
     }

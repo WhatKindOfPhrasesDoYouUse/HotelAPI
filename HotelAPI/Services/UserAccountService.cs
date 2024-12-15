@@ -3,6 +3,7 @@ using HotelAPI.Contracts;
 using HotelAPI.Data;
 using HotelAPI.DTO;
 using HotelAPI.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelAPI.Services
@@ -15,11 +16,13 @@ namespace HotelAPI.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly PasswordHasher<UserAccount> _passwordHasher;
 
-        public UserAccountService(ApplicationDbContext context, IMapper mapper)
+        public UserAccountService(ApplicationDbContext context, IMapper mapper, PasswordHasher<UserAccount> passwordHasher)
         {
             this._context = context;
             this._mapper = mapper;
+            this._passwordHasher = passwordHasher;
         }
 
         public async Task<IEnumerable<UserAccountDTO>> GetAllUsers()
@@ -130,6 +133,29 @@ namespace HotelAPI.Services
             }
 
             return _mapper.Map<UserAccountDTO>(userAccount);
+        }
+
+        public async Task<bool> UpdateUserAccount(long userAccountId, UserAccountSummaryDTO newUserAccount)
+        {
+            var existingUser = await _context.UserAccounts.FirstOrDefaultAsync(u => u.Id == userAccountId);
+
+            if (existingUser == null)
+            {
+                return false;
+            }
+
+            existingUser.FirstName = newUserAccount.FirstName;
+            existingUser.LastName = newUserAccount.LastName;
+            existingUser.Surname = newUserAccount.Surname;
+            existingUser.Email = newUserAccount.Email;
+            existingUser.PhoneNumber = newUserAccount.PhoneNumber;
+            existingUser.Passport = newUserAccount.Passport;
+            existingUser.Password = _passwordHasher.HashPassword(existingUser, newUserAccount.Password);
+             
+
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

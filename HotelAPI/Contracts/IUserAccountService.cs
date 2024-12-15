@@ -10,5 +10,6 @@ namespace HotelAPI.Contracts
         Task<UserAccount?> GetUserModelByEmail(string email);
         Task<UserAccountDTO?> GetUserById(long id);
         Task<UserAccountDTO?> GetUserByFirstNameAndLastName(string firstName, string lastName);
+        Task<bool> UpdateUserAccount(long userAccountId, UserAccountSummaryDTO newUserAccount);
     }
 }

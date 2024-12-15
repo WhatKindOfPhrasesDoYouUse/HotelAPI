@@ -81,6 +81,7 @@ namespace HotelAPI.Controllers
         }
 
         [HttpDelete("DeleteRoomById/{id}")]
+        [Authorize(Roles = "admins")]
         public async Task<IActionResult> DeleteRoomById(long id)
         {
             var result = await _roomService.DeleteRoomById(id);
